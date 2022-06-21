@@ -470,17 +470,17 @@ squamosinaSQSA1b$Specimen <- "T. squamosina SQSA1 smoothed"
 # Bandpass
 
 # Load bandpass filter data
-dat2_1_bp <- read.csv("E:/Dropbox/Research/postdoc/Side projects/Bivalve photosymbiosis and gigantism/Pectinids_Lukas/Data renaissance/Spectral analysis 02/dat2_1_bp.csv", header = TRUE) # Load Shell2_1 bp data
-dat2_2_bp <- read.csv("E:/Dropbox/Research/postdoc/Side projects/Bivalve photosymbiosis and gigantism/Pectinids_Lukas/Data renaissance/Spectral analysis 02/dat2_2_bp.csv", header = TRUE) # Load Shell2_2 bp data
-dat3_1_bp <- read.csv("E:/Dropbox/Research/postdoc/Side projects/Bivalve photosymbiosis and gigantism/Pectinids_Lukas/Data renaissance/Spectral analysis 02/dat3_1_bp.csv", header = TRUE) # Load Shell3_1 bp data
-dat3_2_bp <- read.csv("E:/Dropbox/Research/postdoc/Side projects/Bivalve photosymbiosis and gigantism/Pectinids_Lukas/Data renaissance/Spectral analysis 02/dat3_2_bp.csv", header = TRUE) # Load Shell3_2 bp data
-dat4_bp <- read.csv("E:/Dropbox/Research/postdoc/Side projects/Bivalve photosymbiosis and gigantism/Pectinids_Lukas/Data renaissance/Spectral analysis 02/dat4_bp.csv", header = TRUE) # Load Shell4 bp data
-maxima29_bp <- read.csv("E:/Dropbox/Research/postdoc/Side projects/Bivalve photosymbiosis and gigantism/Tridacnids_Dan/Data renaissance/Spectral analysis/maxima29_bp.csv", header = TRUE) # Load maxima 29 bp data
-maxima84_bp <- read.csv("E:/Dropbox/Research/postdoc/Side projects/Bivalve photosymbiosis and gigantism/Tridacnids_Dan/Data renaissance/Spectral analysis/maxima84_bp.csv", header = TRUE) # Load maxima 84 bp data
-squamosa85_bp <- read.csv("E:/Dropbox/Research/postdoc/Side projects/Bivalve photosymbiosis and gigantism/Tridacnids_Dan/Data renaissance/Spectral analysis/squamosa85_bp.csv", header = TRUE) # Load squamosa 85 bp data
-squamosaFRS1_bp <- read.csv("E:/Dropbox/Research/postdoc/Side projects/Bivalve photosymbiosis and gigantism/Tridacnids_Dan/Data renaissance/Spectral analysis/squamosaFRS1_bp.csv", header = TRUE) # Load squamosa FRS1 bp data
-squamosaM1_bp <- read.csv("E:/Dropbox/Research/postdoc/Side projects/Bivalve photosymbiosis and gigantism/Tridacnids_Dan/Data renaissance/Spectral analysis/squamosaM1_bp.csv", header = TRUE) # Load squamosa M1 bp data
-squamosinaSQSA1_bp <- read.csv("E:/Dropbox/Research/postdoc/Side projects/Bivalve photosymbiosis and gigantism/Tridacnids_Dan/Data renaissance/Spectral analysis/squamosinaSQSA1_bp.csv", header = TRUE) # Load squamosina SQSA1 bp data
+dat2_1_bp <- read.csv("<path>/dat2_1_bp.csv", header = TRUE) # Load Shell2_1 bp data
+dat2_2_bp <- read.csv("<path>/dat2_2_bp.csv", header = TRUE) # Load Shell2_2 bp data
+dat3_1_bp <- read.csv("<path>/dat3_1_bp.csv", header = TRUE) # Load Shell3_1 bp data
+dat3_2_bp <- read.csv("<path>/dat3_2_bp.csv", header = TRUE) # Load Shell3_2 bp data
+dat4_bp <- read.csv("<path>/dat4_bp.csv", header = TRUE) # Load Shell4 bp data
+maxima29_bp <- read.csv("<path>/maxima29_bp.csv", header = TRUE) # Load maxima 29 bp data
+maxima84_bp <- read.csv("<path>/maxima84_bp.csv", header = TRUE) # Load maxima 84 bp data
+squamosa85_bp <- read.csv("<path>/squamosa85_bp.csv", header = TRUE) # Load squamosa 85 bp data
+squamosaFRS1_bp <- read.csv("<path>/squamosaFRS1_bp.csv", header = TRUE) # Load squamosa FRS1 bp data
+squamosaM1_bp <- read.csv("<path>/squamosaM1_bp.csv", header = TRUE) # Load squamosa M1 bp data
+squamosinaSQSA1_bp <- read.csv("<path>/squamosinaSQSA1_bp.csv", header = TRUE) # Load squamosina SQSA1 bp data
 
 colnames(dat2_2_bp)[4:7] <- c("SrCa_tidal", "MgCa_daily", "MnCa_daily", "BaCa_tidal")
 
