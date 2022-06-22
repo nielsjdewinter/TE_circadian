@@ -460,35 +460,6 @@ TSFRS1b$Specimen <- "TSFRS1 smoothed"
 TSM1b$Specimen <- "TSM1 smoothed"
 SQSA1b$Specimen <- "SQSA1 smoothed"
 
-# Bandpass
-
-# Load bandpass filter data
-PM2_1_bp <- read.csv("<path>/dat2_1_bp.csv", header = TRUE) # Load Shell2_1 bp data
-PM2_2_bp <- read.csv("<path>/dat2_2_bp.csv", header = TRUE) # Load Shell2_2 bp data
-PM3_1_bp <- read.csv("<path>/dat3_1_bp.csv", header = TRUE) # Load Shell3_1 bp data
-PM3_2_bp <- read.csv("<path>/dat3_2_bp.csv", header = TRUE) # Load Shell3_2 bp data
-PM4_bp <- read.csv("<path>/dat4_bp.csv", header = TRUE) # Load Shell4 bp data
-TM29_bp <- read.csv("<path>/maxima29_bp.csv", header = TRUE) # Load maxima 29 bp data
-TM84_bp <- read.csv("<path>/maxima84_bp.csv", header = TRUE) # Load maxima 84 bp data
-TS85_bp <- read.csv("<path>/squamosa85_bp.csv", header = TRUE) # Load squamosa 85 bp data
-TSFRS1_bp <- read.csv("<path>/squamosaFRS1_bp.csv", header = TRUE) # Load squamosa FRS1 bp data
-TSM1_bp <- read.csv("<path>/squamosaM1_bp.csv", header = TRUE) # Load squamosa M1 bp data
-SQSA1_bp <- read.csv("<path>/squamosinaSQSA1_bp.csv", header = TRUE) # Load squamosina SQSA1 bp data
-
-colnames(PM2_2_bp)[4:7] <- c("SrCa_tidal", "MgCa_daily", "MnCa_daily", "BaCa_tidal")
-
-# Add specimen columns
-PM2_1_bp$Specimen <- "PM2_1 bp"
-PM2_2_bp$Specimen <- "PM2_2 bp"
-PM3_1_bp$Specimen <- "PM3_1 bp"
-PM3_2_bp$Specimen <- "PM3_2 bp"
-PM4_bp$Specimen <- "PM4 bp"
-TM29_bp$Specimen <- "TM29 bp"
-TM84_bp$Specimen <- "TM84 bp"
-TS85_bp$Specimen <- "TS85 bp"
-TSFRS1_bp$Specimen <- "TSFRS1 bp"
-TSM1_bp$Specimen <- "TSM1 bp"
-SQSA1_bp$Specimen <- "SQSA1 bp"
 
 # ------------------------------------------------------------------------------
 # Combined records
@@ -976,1081 +947,398 @@ combined_loess02_offset <- data.frame(
 # Remove end of Specimen strings
 combined_loess02_offset$Specimen <- combined_filtered_offset$Specimen <- combined_loess02$Specimen <- combined_filtered$Specimen <- combined_smoothed$Specimen <- combined_raw$Specimen <- gsub(pattern = " trim", replacement = "", x = combined_raw$Specimen)
 
-# Plot all records
+# # Plot all records
 
-# Create colorscale
-Specimencolors <- c(brewer.pal(11, "RdBu")[11:7], "#000000", brewer.pal(11, "RdBu")[5:1])
-names(Specimencolors) <- c("TM29", "TM84", "TS85", "TSFRS1", "TSM1", "SQSA1", "PM2_1", "PM2_2", "PM3_1", "PM3_2", "PM4")
+# # Create colorscale
+# Specimencolors <- c(brewer.pal(11, "RdBu")[11:7], "#000000", brewer.pal(11, "RdBu")[5:1])
+# names(Specimencolors) <- c("TM29", "TM84", "TS85", "TSFRS1", "TSM1", "SQSA1", "PM2_1", "PM2_2", "PM3_1", "PM3_2", "PM4")
 
-SrCa_overview_plot <- ggplot(data = combined_raw) +
-#    geom_point(aes(Day, SrCa, col = Specimen),
-#        size = 0.1,
-#        alpha = 0.01,
-#        ) +
-    geom_line(data = combined_filtered_offset,
-        aes(Day, SrCa, col = Specimen),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02_offset,
-        aes(Day, SrCa, col = Specimen),
-        size = 0.1,
-        alpha = 1) +
-    scale_y_continuous("Sr/Ca [mmol/mol]",
-        limits = c(0, 17.5),
-        breaks = c(seq(0, 17.5, 0.5)),
-        labels = c(seq(0, 2, 0.5),
-            rep("", 2),
-            seq(0.5, 2, 0.5),
-            rep("", 2),
-            seq(0.5, 2, 0.5),
-            rep("", 3),
-            seq(1, 2.5, 0.5),
-            rep("", 2),
-            seq(1, 2.5, 0.5),
-            rep("", 2),
-            seq(1, 2.5, 0.5)),
-        sec.axis = sec_axis(~.,
-            name = "Sr/Ca [mmol/mol]",
-            breaks = c(seq(2, 3.5, 0.5),
-                seq(5, 6.5, 0.5),
-                seq(8.5, 10, 0.5),
-                seq(11.5, 13, 0.5),
-                seq(14.5, 16, 0.5)),
-            labels = c(seq(0.5, 2, 0.5),
-                seq(0.5, 2, 0.5),
-                seq(1, 2.5, 0.5),
-                seq(1, 2.5, 0.5),
-                seq(1, 2.5, 0.5)))) +
-    scale_x_continuous("Age (days)",
-        breaks = seq(0, 1100, 100),
-        sec.axis = sec_axis(~.,
-            name = "Age (years)",
-            breaks = seq(0, 3 * 365, 365 / 2),
-            labels = seq(0, 3, 1 / 2))) +
-    geom_hline(yintercept = c(seq(2, 8, 1.5), seq(8.5, 16, 1.5))) +
-    theme_bw() +
-    scale_colour_manual(values = Specimencolors) +
-    ggtitle("Sr/Ca") +
-    theme(legend.position = "none")
+# SrCa_overview_plot <- ggplot(data = combined_raw) +
+# #    geom_point(aes(Day, SrCa, col = Specimen),
+# #        size = 0.1,
+# #        alpha = 0.01,
+# #        ) +
+#     geom_line(data = combined_filtered_offset,
+#         aes(Day, SrCa, col = Specimen),
+#         size = 0.1,
+#         alpha = 0.1) +
+#     geom_line(data = combined_loess02_offset,
+#         aes(Day, SrCa, col = Specimen),
+#         size = 0.1,
+#         alpha = 1) +
+#     scale_y_continuous("Sr/Ca [mmol/mol]",
+#         limits = c(0, 17.5),
+#         breaks = c(seq(0, 17.5, 0.5)),
+#         labels = c(seq(0, 2, 0.5),
+#             rep("", 2),
+#             seq(0.5, 2, 0.5),
+#             rep("", 2),
+#             seq(0.5, 2, 0.5),
+#             rep("", 3),
+#             seq(1, 2.5, 0.5),
+#             rep("", 2),
+#             seq(1, 2.5, 0.5),
+#             rep("", 2),
+#             seq(1, 2.5, 0.5)),
+#         sec.axis = sec_axis(~.,
+#             name = "Sr/Ca [mmol/mol]",
+#             breaks = c(seq(2, 3.5, 0.5),
+#                 seq(5, 6.5, 0.5),
+#                 seq(8.5, 10, 0.5),
+#                 seq(11.5, 13, 0.5),
+#                 seq(14.5, 16, 0.5)),
+#             labels = c(seq(0.5, 2, 0.5),
+#                 seq(0.5, 2, 0.5),
+#                 seq(1, 2.5, 0.5),
+#                 seq(1, 2.5, 0.5),
+#                 seq(1, 2.5, 0.5)))) +
+#     scale_x_continuous("Age (days)",
+#         breaks = seq(0, 1100, 100),
+#         sec.axis = sec_axis(~.,
+#             name = "Age (years)",
+#             breaks = seq(0, 3 * 365, 365 / 2),
+#             labels = seq(0, 3, 1 / 2))) +
+#     geom_hline(yintercept = c(seq(2, 8, 1.5), seq(8.5, 16, 1.5))) +
+#     theme_bw() +
+#     scale_colour_manual(values = Specimencolors) +
+#     ggtitle("Sr/Ca") +
+#     theme(legend.position = "none")
 
-MgCa_overview_plot <- ggplot(data = combined_raw) +
-#    geom_point(aes(Day, MgCa, col = Specimen),
-#        size = 0.1,
-#        alpha = 0.01,
-#        ) +
-    geom_line(data = combined_filtered_offset,
-        aes(Day, MgCa, col = Specimen),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02_offset,
-        aes(Day, MgCa, col = Specimen),
-        size = 0.1,
-        alpha = 1) +
-    scale_y_continuous("Mg/Ca [mmol/mol]",
-        limits = c(0, 36),
-        breaks = c(seq(0, 36, 1)),
-        labels = c(seq(0, 5, 1),
-            rep("", 2),
-            seq(2, 5, 1),
-            rep("", 2),
-            seq(2, 5, 1),
-            rep("", 3),
-            seq(0, 3, 1),
-            rep("", 2),
-            seq(0, 3, 1),
-            rep("", 2),
-            seq(0, 3, 1)),
-        sec.axis = sec_axis(~.,
-            name = "Mg/Ca [mmol/mol]",
-            breaks = c(seq(5, 8, 1),
-                seq(11, 14, 1),
-                seq(18, 21, 1),
-                seq(24, 27, 1),
-                seq(30, 33, 1)),
-            labels = c(seq(2, 5, 1),
-                seq(2, 5, 1),
-                seq(0, 3, 1),
-                seq(0, 3, 1),
-                seq(0, 3, 1)))) +
-    scale_x_continuous("Age (days)",
-        breaks = seq(0, 1100, 100),
-        sec.axis = sec_axis(~.,
-            name = "Age (years)",
-            breaks = seq(0, 3 * 365, 365 / 2),
-            labels = seq(0, 3, 1 / 2))) +
-    geom_hline(yintercept = c(seq(5, 17, 3), seq(18, 33, 3))) +
-    theme_bw() +
-    scale_colour_manual(values = Specimencolors) +
-    ggtitle("Mg/Ca") +
-    theme(legend.position = "none")
+# MgCa_overview_plot <- ggplot(data = combined_raw) +
+# #    geom_point(aes(Day, MgCa, col = Specimen),
+# #        size = 0.1,
+# #        alpha = 0.01,
+# #        ) +
+#     geom_line(data = combined_filtered_offset,
+#         aes(Day, MgCa, col = Specimen),
+#         size = 0.1,
+#         alpha = 0.1) +
+#     geom_line(data = combined_loess02_offset,
+#         aes(Day, MgCa, col = Specimen),
+#         size = 0.1,
+#         alpha = 1) +
+#     scale_y_continuous("Mg/Ca [mmol/mol]",
+#         limits = c(0, 36),
+#         breaks = c(seq(0, 36, 1)),
+#         labels = c(seq(0, 5, 1),
+#             rep("", 2),
+#             seq(2, 5, 1),
+#             rep("", 2),
+#             seq(2, 5, 1),
+#             rep("", 3),
+#             seq(0, 3, 1),
+#             rep("", 2),
+#             seq(0, 3, 1),
+#             rep("", 2),
+#             seq(0, 3, 1)),
+#         sec.axis = sec_axis(~.,
+#             name = "Mg/Ca [mmol/mol]",
+#             breaks = c(seq(5, 8, 1),
+#                 seq(11, 14, 1),
+#                 seq(18, 21, 1),
+#                 seq(24, 27, 1),
+#                 seq(30, 33, 1)),
+#             labels = c(seq(2, 5, 1),
+#                 seq(2, 5, 1),
+#                 seq(0, 3, 1),
+#                 seq(0, 3, 1),
+#                 seq(0, 3, 1)))) +
+#     scale_x_continuous("Age (days)",
+#         breaks = seq(0, 1100, 100),
+#         sec.axis = sec_axis(~.,
+#             name = "Age (years)",
+#             breaks = seq(0, 3 * 365, 365 / 2),
+#             labels = seq(0, 3, 1 / 2))) +
+#     geom_hline(yintercept = c(seq(5, 17, 3), seq(18, 33, 3))) +
+#     theme_bw() +
+#     scale_colour_manual(values = Specimencolors) +
+#     ggtitle("Mg/Ca") +
+#     theme(legend.position = "none")
 
-MnCa_overview_plot <- ggplot(data = combined_raw) +
-#    geom_point(aes(Day, MnCa, col = Specimen),
-#        size = 0.1,
-#        alpha = 0.01,
-#        ) +
-    geom_line(data = combined_filtered_offset,
-        aes(Day, MnCa, col = Specimen),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02_offset,
-        aes(Day, MnCa, col = Specimen),
-        size = 0.1,
-        alpha = 1) +
-    scale_y_continuous(expression(paste("Mn/Ca [", mu, "mol/mol]")),
-        limits = c(0, 0.22),
-        breaks = c(seq(0, 0.22, .005)),
-        labels = c(seq(0, 20, 5),
-            rep("", 3),
-            seq(0, 20, 5),
-            rep("", 3),
-            seq(0, 20, 5),
-            rep("", 3),
-            seq(0, 20, 5),
-            rep("", 3),
-            seq(0, 20, 5),
-            rep("", 3),
-            seq(0, 20, 5)),
-        sec.axis = sec_axis(~.,
-            name = expression(paste("Mn/Ca [", mu, "mol/mol]")),
-            breaks = c(seq(.02, .04, .005),
-                seq(.06, .08, .005),
-                seq(.1, .12, .005),
-                seq(.14, .16, .005),
-                seq(.18, .2, .005)),
-            labels = c(seq(0, 20, 5),
-                seq(0, 20, 5),
-                seq(0, 20, 5),
-                seq(0, 20, 5),
-                seq(0, 20, 5)))) +
-    scale_x_continuous("Age (days)",
-        breaks = seq(0, 1100, 100),
-        sec.axis = sec_axis(~.,
-            name = "Age (years)",
-            breaks = seq(0, 3 * 365, 365 / 2),
-            labels = seq(0, 3, 1 / 2))) +
-    geom_hline(yintercept = seq(.02, .2, .02)) +
-    theme_bw() +            
-    scale_colour_manual(values = Specimencolors) +
-    ggtitle("Mn/Ca") +
-    theme(legend.position = "none")
+# MnCa_overview_plot <- ggplot(data = combined_raw) +
+# #    geom_point(aes(Day, MnCa, col = Specimen),
+# #        size = 0.1,
+# #        alpha = 0.01,
+# #        ) +
+#     geom_line(data = combined_filtered_offset,
+#         aes(Day, MnCa, col = Specimen),
+#         size = 0.1,
+#         alpha = 0.1) +
+#     geom_line(data = combined_loess02_offset,
+#         aes(Day, MnCa, col = Specimen),
+#         size = 0.1,
+#         alpha = 1) +
+#     scale_y_continuous(expression(paste("Mn/Ca [", mu, "mol/mol]")),
+#         limits = c(0, 0.22),
+#         breaks = c(seq(0, 0.22, .005)),
+#         labels = c(seq(0, 20, 5),
+#             rep("", 3),
+#             seq(0, 20, 5),
+#             rep("", 3),
+#             seq(0, 20, 5),
+#             rep("", 3),
+#             seq(0, 20, 5),
+#             rep("", 3),
+#             seq(0, 20, 5),
+#             rep("", 3),
+#             seq(0, 20, 5)),
+#         sec.axis = sec_axis(~.,
+#             name = expression(paste("Mn/Ca [", mu, "mol/mol]")),
+#             breaks = c(seq(.02, .04, .005),
+#                 seq(.06, .08, .005),
+#                 seq(.1, .12, .005),
+#                 seq(.14, .16, .005),
+#                 seq(.18, .2, .005)),
+#             labels = c(seq(0, 20, 5),
+#                 seq(0, 20, 5),
+#                 seq(0, 20, 5),
+#                 seq(0, 20, 5),
+#                 seq(0, 20, 5)))) +
+#     scale_x_continuous("Age (days)",
+#         breaks = seq(0, 1100, 100),
+#         sec.axis = sec_axis(~.,
+#             name = "Age (years)",
+#             breaks = seq(0, 3 * 365, 365 / 2),
+#             labels = seq(0, 3, 1 / 2))) +
+#     geom_hline(yintercept = seq(.02, .2, .02)) +
+#     theme_bw() +            
+#     scale_colour_manual(values = Specimencolors) +
+#     ggtitle("Mn/Ca") +
+#     theme(legend.position = "none")
 
-BaCa_overview_plot <- ggplot(data = combined_raw) +
-#    geom_point(aes(Day, BaCa, col = Specimen),
-#        size = 0.1,
-#        alpha = 0.01,
-#        ) +
-    geom_line(data = combined_filtered_offset,
-        aes(Day, BaCa, col = Specimen),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02_offset,
-        aes(Day, BaCa, col = Specimen),
-        size = 0.1,
-        alpha = 1) +
-    scale_y_continuous(expression(paste("Ba/Ca [", mu, "mmol/mol]")),
-        limits = c(0, 0.11),
-        breaks = c(seq(0, 0.11, .0025)),
-        labels = c(seq(0, 10, 2.5),
-            rep("", 3),
-            seq(0, 10, 2.5),
-            rep("", 3),
-            seq(0, 10, 2.5),
-            rep("", 3),
-            seq(0, 10, 2.5),
-            rep("", 3),
-            seq(0, 10, 2.5),
-            rep("", 3),
-            seq(0, 10, 2.5)),
-        sec.axis = sec_axis(~.,
-            name = expression(paste("Ba/Ca [", mu, "mmol/mol]")),
-            breaks = c(seq(.01, .02, .0025),
-                seq(.03, .04, .0025),
-                seq(.05, .06, .0025),
-                seq(.07, .08, .0025),
-                seq(.09, .1, .0025)),
-            labels = c(seq(0, 10, 2.5),
-                seq(0, 10, 2.5),
-                seq(0, 10, 2.5),
-                seq(0, 10, 2.5),
-                seq(0, 10, 2.5)))) +
-    scale_x_continuous("Age (days)",
-        breaks = seq(0, 1100, 100),
-        sec.axis = sec_axis(~.,
-            name = "Age (years)",
-            breaks = seq(0, 3 * 365, 365 / 2),
-            labels = seq(0, 3, 1 / 2))) +
-    geom_hline(yintercept = seq(.01, .1, .01)) +
-    theme_bw() +            
-    scale_colour_manual(values = Specimencolors) +
-    ggtitle("Ba/Ca") +
-    theme(legend.position = "none")
+# BaCa_overview_plot <- ggplot(data = combined_raw) +
+# #    geom_point(aes(Day, BaCa, col = Specimen),
+# #        size = 0.1,
+# #        alpha = 0.01,
+# #        ) +
+#     geom_line(data = combined_filtered_offset,
+#         aes(Day, BaCa, col = Specimen),
+#         size = 0.1,
+#         alpha = 0.1) +
+#     geom_line(data = combined_loess02_offset,
+#         aes(Day, BaCa, col = Specimen),
+#         size = 0.1,
+#         alpha = 1) +
+#     scale_y_continuous(expression(paste("Ba/Ca [", mu, "mmol/mol]")),
+#         limits = c(0, 0.11),
+#         breaks = c(seq(0, 0.11, .0025)),
+#         labels = c(seq(0, 10, 2.5),
+#             rep("", 3),
+#             seq(0, 10, 2.5),
+#             rep("", 3),
+#             seq(0, 10, 2.5),
+#             rep("", 3),
+#             seq(0, 10, 2.5),
+#             rep("", 3),
+#             seq(0, 10, 2.5),
+#             rep("", 3),
+#             seq(0, 10, 2.5)),
+#         sec.axis = sec_axis(~.,
+#             name = expression(paste("Ba/Ca [", mu, "mmol/mol]")),
+#             breaks = c(seq(.01, .02, .0025),
+#                 seq(.03, .04, .0025),
+#                 seq(.05, .06, .0025),
+#                 seq(.07, .08, .0025),
+#                 seq(.09, .1, .0025)),
+#             labels = c(seq(0, 10, 2.5),
+#                 seq(0, 10, 2.5),
+#                 seq(0, 10, 2.5),
+#                 seq(0, 10, 2.5),
+#                 seq(0, 10, 2.5)))) +
+#     scale_x_continuous("Age (days)",
+#         breaks = seq(0, 1100, 100),
+#         sec.axis = sec_axis(~.,
+#             name = "Age (years)",
+#             breaks = seq(0, 3 * 365, 365 / 2),
+#             labels = seq(0, 3, 1 / 2))) +
+#     geom_hline(yintercept = seq(.01, .1, .01)) +
+#     theme_bw() +            
+#     scale_colour_manual(values = Specimencolors) +
+#     ggtitle("Ba/Ca") +
+#     theme(legend.position = "none")
 
-combined_plots <- grid.arrange(SrCa_overview_plot,
-    MgCa_overview_plot,
-    MnCa_overview_plot,
-    BaCa_overview_plot,
-    ncol = 4)
+# combined_plots <- grid.arrange(SrCa_overview_plot,
+#     MgCa_overview_plot,
+#     MnCa_overview_plot,
+#     BaCa_overview_plot,
+#     ncol = 4)
+
+# Move to long format to enable facet grids
+
+combined_filtered_long <- combined_filtered %>%
+    gather(key = "parameter", value = "value", MgCa:BaCa)
+
+combined_loess02_long <- combined_loess02 %>%
+    gather(key = "parameter", value = "value", MgCa:BaCa)
 
 # Plots per specimen
-elementcolors <- c(brewer.pal(4, "Paired"))
-names(elementcolors) <- c("Mg", "Sr", "Mn", "Ba")
+elementcolors <- c("darkgreen", "blue", "purple", "orange")
+names(elementcolors) <- c("MgCa", "SrCa", "MnCa", "BaCa")
 
-#PM2_1
-PM2_1_MgSr_plot <- ggplot(data = combined_raw) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "PM2_1"),], 
-        aes(Day, SrCa * 3, col = "Sr"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "PM2_1"),],
-        aes(Day, SrCa * 3, col = "Sr"),
-        size = 0.1,
-        alpha = 1) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "PM2_1"),], 
-        aes(Day, MgCa, col = "Mg"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "PM2_1"),],
-        aes(Day, MgCa, col = "Mg"),
-        size = 0.1,
-        alpha = 1) +
-    scale_y_continuous("Sr/Ca [mmol/mol]",
-        limits = c(0, 6),
-        breaks = seq(0, 6, 1.5),
-        labels = seq(0, 2, 0.5),
-        sec.axis = sec_axis(~.,
-            name = "Mg/Ca [mmol/mol]",
-            breaks = seq(0, 6, 1),
-            labels = seq(0, 6, 1))) +
-    scale_x_continuous("Age (days)",
-        limits = c(0, 300),
-        breaks = seq(0, 300, 50)) +
-        # sec.axis = sec_axis(~.,
-        #     name = "Age (years)",
-        #     breaks = seq(0, 365, 365 / 10),
-        #     labels = seq(0, 1, 1 / 10))) +
-    scale_colour_manual(values = elementcolors) +
-    theme_bw() +
-    theme(legend.position = "none")
+# All pectinid plot
 
-PM2_1_MnBa_plot <- ggplot(data = combined_raw) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "PM2_1"),], 
-        aes(Day, BaCa * 3000, col = "Ba"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "PM2_1"),],
-        aes(Day, BaCa * 3000, col = "Ba"),
-        size = 0.1,
-        alpha = 1) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "PM2_1"),], 
-        aes(Day, MnCa * 1000, col = "Mn"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "PM2_1"),],
-        aes(Day, MnCa * 1000, col = "Mn"),
-        size = 0.1,
-        alpha = 1) +
-    scale_y_continuous(expression("Ba/Ca [" * mu * "mol/mol]"),
-        limits = c(0, 12),
-        breaks = seq(0, 12, 3),
-        labels = seq(0, 4, 1),
-        sec.axis = sec_axis(~.,
-            name = expression("Mn/Ca [" * mu * "mol/mol]"),
-            breaks = seq(0, 12, 3),
-            labels = seq(0, 12, 3))) +
-    scale_x_continuous("",
-        limits = c(0, 300),
+# Define scales of y-axes individually for pectinids
+scales_y_PM <- list(
+  `BaCa` = scale_y_continuous("", limits = c(0, 0.01), breaks = seq(0, 0.01, 0.002), labels = seq(0, 10, 2)),
+  `MgCa` = scale_y_continuous("", limits = c(0, 6), breaks = seq(0, 6, 1)),
+  `MnCa` = scale_y_continuous("", limits = c(0, 0.02), breaks = seq(0, 0.02, 0.005), labels = seq(0, 20, 5)),
+  `SrCa` = scale_y_continuous("", limits = c(0, 2), breaks = seq(0, 2, 0.5))
+)
+
+# Define scales of x-axes individually for pectinids
+scales_x_PM <- list(
+  `PM2_1` = scale_x_continuous("Age (days)",
+        limits = c(0, 250),
         breaks = seq(0, 300, 50),
-        labels = NULL,
         sec.axis = sec_axis(~.,
             name = "Age (years)",
             breaks = seq(0, 365, 365 / 10),
-            labels = seq(0, 1, 1 / 10))) +
-    scale_colour_manual(values = elementcolors) +
-    theme_bw() +
-    theme(legend.position = "none")
-
-PM2_1_combined_plot <- ggarrange(PM2_1_MnBa_plot,
-    PM2_1_MgSr_plot,
-    ncol = 1)
-
-# PM2_2
-PM2_2_MgSr_plot <- ggplot(data = combined_raw) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "PM2_2"),], 
-        aes(Day, SrCa * 3, col = "Sr"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "PM2_2"),],
-        aes(Day, SrCa * 3, col = "Sr"),
-        size = 0.1,
-        alpha = 1) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "PM2_2"),], 
-        aes(Day, MgCa, col = "Mg"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "PM2_2"),],
-        aes(Day, MgCa, col = "Mg"),
-        size = 0.1,
-        alpha = 1) +
-    scale_y_continuous("Sr/Ca [mmol/mol]",
-        limits = c(0, 6),
-        breaks = seq(0, 6, 1.5),
-        labels = seq(0, 2, 0.5),
-        sec.axis = sec_axis(~.,
-            name = "Mg/Ca [mmol/mol]",
-            breaks = seq(0, 6, 1),
-            labels = seq(0, 6, 1))) +
-    scale_x_continuous("Age (days)",
-        limits = c(0, 300),
-        breaks = seq(0, 300, 50)) +
-        # sec.axis = sec_axis(~.,
-        #     name = "Age (years)",
-        #     breaks = seq(0, 365, 365 / 10),
-        #     labels = seq(0, 1, 1 / 10))) +
-    scale_colour_manual(values = elementcolors) +
-    theme_bw() +
-    theme(legend.position = "none")
-
-PM2_2_MnBa_plot <- ggplot(data = combined_raw) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "PM2_2"),], 
-        aes(Day, BaCa * 3000, col = "Ba"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "PM2_2"),],
-        aes(Day, BaCa * 3000, col = "Ba"),
-        size = 0.1,
-        alpha = 1) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "PM2_2"),], 
-        aes(Day, MnCa * 1000, col = "Mn"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "PM2_2"),],
-        aes(Day, MnCa * 1000, col = "Mn"),
-        size = 0.1,
-        alpha = 1) +
-    scale_y_continuous(expression("Ba/Ca [" * mu * "mol/mol]"),
-        limits = c(0, 15),
-        breaks = seq(0, 15, 3),
-        labels = seq(0, 5, 1),
-        sec.axis = sec_axis(~.,
-            name = expression("Mn/Ca [" * mu * "mol/mol]"),
-            breaks = seq(0, 15, 3),
-            labels = seq(0, 15, 3))) +
-    scale_x_continuous("",
-        limits = c(0, 300),
+            labels = seq(0, 1, 1 / 10))),
+  `PM2_2` = scale_x_continuous("Age (days)",
+        limits = c(0, 250),
         breaks = seq(0, 300, 50),
-        labels = NULL,
         sec.axis = sec_axis(~.,
             name = "Age (years)",
             breaks = seq(0, 365, 365 / 10),
-            labels = seq(0, 1, 1 / 10))) +
-    scale_colour_manual(values = elementcolors) +
-    theme_bw() +
-    theme(legend.position = "none")
-
-PM2_2_combined_plot <- ggarrange(PM2_2_MnBa_plot,
-    PM2_2_MgSr_plot,
-    ncol = 1)
-
-# PM3_1
-PM3_1_MgSr_plot <- ggplot(data = combined_raw) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "PM3_1"),], 
-        aes(Day, SrCa * 3, col = "Sr"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "PM3_1"),],
-        aes(Day, SrCa * 3, col = "Sr"),
-        size = 0.1,
-        alpha = 1) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "PM3_1"),], 
-        aes(Day, MgCa, col = "Mg"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "PM3_1"),],
-        aes(Day, MgCa, col = "Mg"),
-        size = 0.1,
-        alpha = 1) +
-    scale_y_continuous("Sr/Ca [mmol/mol]",
-        limits = c(0, 6),
-        breaks = seq(0, 6, 1.5),
-        labels = seq(0, 2, 0.5),
-        sec.axis = sec_axis(~.,
-            name = "Mg/Ca [mmol/mol]",
-            breaks = seq(0, 6, 1),
-            labels = seq(0, 6, 1))) +
-    scale_x_continuous("Age (days)",
-        limits = c(0, 300),
-        breaks = seq(0, 300, 50)) +
-        # sec.axis = sec_axis(~.,
-        #     name = "Age (years)",
-        #     breaks = seq(0, 365, 365 / 10),
-        #     labels = seq(0, 1, 1 / 10))) +
-    scale_colour_manual(values = elementcolors) +
-    theme_bw() +
-    theme(legend.position = "none")
-
-PM3_1_MnBa_plot <- ggplot(data = combined_raw) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "PM3_1"),], 
-        aes(Day, BaCa * 3000, col = "Ba"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "PM3_1"),],
-        aes(Day, BaCa * 3000, col = "Ba"),
-        size = 0.1,
-        alpha = 1) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "PM3_1"),], 
-        aes(Day, MnCa * 1000, col = "Mn"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "PM3_1"),],
-        aes(Day, MnCa * 1000, col = "Mn"),
-        size = 0.1,
-        alpha = 1) +
-    scale_y_continuous(expression("Ba/Ca [" * mu * "mol/mol]"),
-        limits = c(0, 24),
-        breaks = seq(0, 24, 6),
-        labels = seq(0, 8, 2),
-        sec.axis = sec_axis(~.,
-            name = expression("Mn/Ca [" * mu * "mol/mol]"),
-            breaks = seq(0, 24, 6),
-            labels = seq(0, 24, 6))) +
-    scale_x_continuous("",
-        limits = c(0, 300),
+            labels = seq(0, 1, 1 / 10))),
+  `PM3_1` = scale_x_continuous("Age (days)",
+        limits = c(0, 250),
         breaks = seq(0, 300, 50),
-        labels = NULL,
         sec.axis = sec_axis(~.,
             name = "Age (years)",
             breaks = seq(0, 365, 365 / 10),
-            labels = seq(0, 1, 1 / 10))) +
-    scale_colour_manual(values = elementcolors) +
-    theme_bw() +
-    theme(legend.position = "none")
-
-PM3_1_combined_plot <- ggarrange(PM3_1_MnBa_plot,
-    PM3_1_MgSr_plot,
-    ncol = 1)
-
-# PM3_2
-PM3_2_MgSr_plot <- ggplot(data = combined_raw) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "PM3_2"),], 
-        aes(Day, SrCa * 3, col = "Sr"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "PM3_2"),],
-        aes(Day, SrCa * 3, col = "Sr"),
-        size = 0.1,
-        alpha = 1) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "PM3_2"),], 
-        aes(Day, MgCa, col = "Mg"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "PM3_2"),],
-        aes(Day, MgCa, col = "Mg"),
-        size = 0.1,
-        alpha = 1) +
-    scale_y_continuous("Sr/Ca [mmol/mol]",
-        limits = c(0, 6),
-        breaks = seq(0, 6, 1.5),
-        labels = seq(0, 2, 0.5),
-        sec.axis = sec_axis(~.,
-            name = "Mg/Ca [mmol/mol]",
-            breaks = seq(0, 6, 1),
-            labels = seq(0, 6, 1))) +
-    scale_x_continuous("Age (days)",
-        limits = c(0, 300),
-        breaks = seq(0, 300, 50)) +
-        # sec.axis = sec_axis(~.,
-        #     name = "Age (years)",
-        #     breaks = seq(0, 365, 365 / 10),
-        #     labels = seq(0, 1, 1 / 10))) +
-    scale_colour_manual(values = elementcolors) +
-    theme_bw() +
-    theme(legend.position = "none")
-
-PM3_2_MnBa_plot <- ggplot(data = combined_raw) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "PM3_2"),], 
-        aes(Day, BaCa * 3000, col = "Ba"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "PM3_2"),],
-        aes(Day, BaCa * 3000, col = "Ba"),
-        size = 0.1,
-        alpha = 1) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "PM3_2"),], 
-        aes(Day, MnCa * 1000, col = "Mn"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "PM3_2"),],
-        aes(Day, MnCa * 1000, col = "Mn"),
-        size = 0.1,
-        alpha = 1) +
-    scale_y_continuous(expression("Ba/Ca [" * mu * "mol/mol]"),
-        limits = c(0, 12),
-        breaks = seq(0, 12, 3),
-        labels = seq(0, 4, 1),
-        sec.axis = sec_axis(~.,
-            name = expression("Mn/Ca [" * mu * "mol/mol]"),
-            breaks = seq(0, 12, 3),
-            labels = seq(0, 12, 3))) +
-    scale_x_continuous("",
-        limits = c(0, 300),
+            labels = seq(0, 1, 1 / 10))),
+  `PM3_2` = scale_x_continuous("Age (days)",
+        limits = c(0, 250),
         breaks = seq(0, 300, 50),
-        labels = NULL,
         sec.axis = sec_axis(~.,
             name = "Age (years)",
             breaks = seq(0, 365, 365 / 10),
-            labels = seq(0, 1, 1 / 10))) +
-    scale_colour_manual(values = elementcolors) +
-    theme_bw() +
-    theme(legend.position = "none")
-
-PM3_2_combined_plot <- ggarrange(PM3_2_MnBa_plot,
-    PM3_2_MgSr_plot,
-    ncol = 1)
-
-# PM4
-PM4_MgSr_plot <- ggplot(data = combined_raw) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "PM4"),], 
-        aes(Day, SrCa * 3, col = "Sr"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "PM4"),],
-        aes(Day, SrCa * 3, col = "Sr"),
-        size = 0.1,
-        alpha = 1) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "PM4"),], 
-        aes(Day, MgCa, col = "Mg"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "PM4"),],
-        aes(Day, MgCa, col = "Mg"),
-        size = 0.1,
-        alpha = 1) +
-    scale_y_continuous("Sr/Ca [mmol/mol]",
-        limits = c(0, 6),
-        breaks = seq(0, 6, 1.5),
-        labels = seq(0, 2, 0.5),
-        sec.axis = sec_axis(~.,
-            name = "Mg/Ca [mmol/mol]",
-            breaks = seq(0, 6, 1),
-            labels = seq(0, 6, 1))) +
-    scale_x_continuous("Age (days)",
-        limits = c(0, 300),
-        breaks = seq(0, 300, 50)) +
-        # sec.axis = sec_axis(~.,
-        #     name = "Age (years)",
-        #     breaks = seq(0, 365, 365 / 10),
-        #     labels = seq(0, 1, 1 / 10))) +
-    scale_colour_manual(values = elementcolors) +
-    theme_bw() +
-    theme(legend.position = "none")
-
-PM4_MnBa_plot <- ggplot(data = combined_raw) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "PM4"),], 
-        aes(Day, BaCa * 3000, col = "Ba"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "PM4"),],
-        aes(Day, BaCa * 3000, col = "Ba"),
-        size = 0.1,
-        alpha = 1) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "PM4"),], 
-        aes(Day, MnCa * 1000, col = "Mn"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "PM4"),],
-        aes(Day, MnCa * 1000, col = "Mn"),
-        size = 0.1,
-        alpha = 1) +
-    scale_y_continuous(expression("Ba/Ca [" * mu * "mol/mol]"),
-        limits = c(0, 12),
-        breaks = seq(0, 12, 3),
-        labels = seq(0, 4, 1),
-        sec.axis = sec_axis(~.,
-            name = expression("Mn/Ca [" * mu * "mol/mol]"),
-            breaks = seq(0, 12, 3),
-            labels = seq(0, 12, 3))) +
-    scale_x_continuous("",
+            labels = seq(0, 1, 1 / 10))),
+  `PM4` = scale_x_continuous("Age (days)",
         limits = c(0, 300),
         breaks = seq(0, 300, 50),
-        labels = NULL,
         sec.axis = sec_axis(~.,
             name = "Age (years)",
             breaks = seq(0, 365, 365 / 10),
-            labels = seq(0, 1, 1 / 10))) +
+            labels = seq(0, 1, 1 / 10)))
+)
+
+# Plot pectinid records
+PM_facet_plot <- ggplot(data = combined_filtered_long[which(combined_filtered_long$Specimen %in% c("PM2_1", "PM2_2", "PM3_1", "PM3_2", "PM4")),]) +
+    geom_line(data = combined_filtered_long[which(combined_filtered_long$Specimen %in% c("PM2_1", "PM2_2", "PM3_1", "PM3_2", "PM4")),], 
+        aes(Day, value, col = parameter),
+        size = 0.1,
+        alpha = 0.1) +
+    geom_line(data = combined_loess02_long[which(combined_filtered_long$Specimen %in% c("PM2_1", "PM2_2", "PM3_1", "PM3_2", "PM4")),],
+        aes(Day, value, col = parameter),
+        size = 1,
+        alpha = 1) +
+    facet_grid_sc(parameter ~ Specimen,
+        scales = list(x = scales_x_PM, y = scales_y_PM),
+        switch = "y",
+        labeller = as_labeller(c(BaCa = "Ba/Ca [umol/mol]",
+            MgCa = "Mg/Ca [mmol/mol]",
+            MnCa = "Mn/Ca [umol/mol]",
+            SrCa = "Sr/Ca [mmol/mol]",
+            PM2_1 = "P. maximus 2 (valley)",
+            PM2_2 = "P. maximus 2 (rib)",
+            PM3_1 = "P. maximus 3 (valley)",
+            PM3_2 = "P. maximus 3 (rib)",
+            PM4 = "P. maximus 4 (valley)"))) +
     scale_colour_manual(values = elementcolors) +
     theme_bw() +
-    theme(legend.position = "none")
+    theme(strip.background = element_blank(), # remove the background
+        strip.placement = "outside", # put labels to the left of the axis text
+        legend.position = "none")
 
-PM4_combined_plot <- ggarrange(PM4_MnBa_plot,
-    PM4_MgSr_plot,
-    ncol = 1)
+# ------------------------------------------------------------------------------
+# Define scales of y-axes individually for tridacnids
+scales_y_T <- list(
+  `BaCa` = scale_y_continuous("", limits = c(0, 0.01), breaks = seq(0, 0.01, 0.005), labels = seq(0, 10, 5)),
+  `MgCa` = scale_y_continuous("", limits = c(0, 4), breaks = seq(0, 4, 1)),
+  `MnCa` = scale_y_continuous("", limits = c(0, 0.02), breaks = seq(0, 0.02, 0.005), labels = seq(0, 20, 5)),
+  `SrCa` = scale_y_continuous("", limits = c(0, 3), breaks = seq(0, 3, 0.5))
+)
 
-# TRIDACNIDS
-# TM29
-TM29_MgSr_plot <- ggplot(data = combined_raw) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "TM29"),], 
-        aes(Day, SrCa, col = "Sr"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "TM29"),],
-        aes(Day, SrCa, col = "Sr"),
-        size = 0.1,
-        alpha = 1) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "TM29"),], 
-        aes(Day, MgCa, col = "Mg"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "TM29"),],
-        aes(Day, MgCa, col = "Mg"),
-        size = 0.1,
-        alpha = 1) +
-    scale_y_continuous("Sr/Ca [mmol/mol]",
-        limits = c(0, 2),
-        breaks = seq(0, 2, .5),
-        labels = seq(0, 2, .5),
-        sec.axis = sec_axis(~.,
-            name = "Mg/Ca [mmol/mol]",
-            breaks = seq(0, 2, .5),
-            labels = seq(0, 2, .5))) +
-    scale_x_continuous("Age (days)",
-        limits = c(0, 1100),
-        breaks = seq(0, 1100, 100)) +
-        # sec.axis = sec_axis(~.,
-        #     name = "Age (years)",
-        #     breaks = seq(0, 365, 365 / 10),
-        #     labels = seq(0, 1, 1 / 10))) +
-    scale_colour_manual(values = elementcolors) +
-    theme_bw() +
-    theme(legend.position = "none")
-
-TM29_MnBa_plot <- ggplot(data = combined_raw) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "TM29"),], 
-        aes(Day, BaCa * 1000, col = "Ba"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "TM29"),],
-        aes(Day, BaCa * 1000, col = "Ba"),
-        size = 0.1,
-        alpha = 1) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "TM29"),], 
-        aes(Day, MnCa * 1000, col = "Mn"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "TM29"),],
-        aes(Day, MnCa * 1000, col = "Mn"),
-        size = 0.1,
-        alpha = 1) +
-    scale_y_continuous(expression("Ba/Ca [" * mu * "mol/mol]"),
-        limits = c(0, 4),
-        breaks = seq(0, 4, 1),
-        labels = seq(0, 4, 1),
-        sec.axis = sec_axis(~.,
-            name = expression("Mn/Ca [" * mu * "mol/mol]"),
-            breaks = seq(0, 4, 1),
-            labels = seq(0, 4, 1))) +
-    scale_x_continuous("",
-        limits = c(0, 1100),
-        breaks = seq(0, 1100, 100),
-        labels = NULL,
+# Define scales of x-axes individually for pectinids
+scales_x_T <- list(
+  `TM29` = scale_x_continuous("Age (days)",
+        limits = c(0, 600),
+        breaks = seq(0, 1200, 100),
         sec.axis = sec_axis(~.,
             name = "Age (years)",
             breaks = seq(0, 3 * 365, 365 / 2),
-            labels = seq(0, 3, 1 / 2))) +
-    scale_colour_manual(values = elementcolors) +
-    theme_bw() +
-    theme(legend.position = "none")
-
-TM29_combined_plot <- ggarrange(TM29_MnBa_plot,
-    TM29_MgSr_plot,
-    ncol = 1)
-
-# TM84
-TM84_MgSr_plot <- ggplot(data = combined_raw) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "TM84"),], 
-        aes(Day, SrCa, col = "Sr"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "TM84"),],
-        aes(Day, SrCa, col = "Sr"),
-        size = 0.1,
-        alpha = 1) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "TM84"),], 
-        aes(Day, MgCa, col = "Mg"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "TM84"),],
-        aes(Day, MgCa, col = "Mg"),
-        size = 0.1,
-        alpha = 1) +
-    scale_y_continuous("Sr/Ca [mmol/mol]",
-        limits = c(0, 3),
-        breaks = seq(0, 3, .5),
-        labels = seq(0, 3, .5),
-        sec.axis = sec_axis(~.,
-            name = "Mg/Ca [mmol/mol]",
-            breaks = seq(0, 3, .5),
-            labels = seq(0, 3, .5))) +
-    scale_x_continuous("Age (days)",
-        limits = c(0, 1100),
-        breaks = seq(0, 1100, 150)) +
-        # sec.axis = sec_axis(~.,
-        #     name = "Age (years)",
-        #     breaks = seq(0, 365, 365 / 10),
-        #     labels = seq(0, 1, 1 / 10))) +
-    scale_colour_manual(values = elementcolors) +
-    theme_bw() +
-    theme(legend.position = "none")
-
-TM84_MnBa_plot <- ggplot(data = combined_raw) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "TM84"),], 
-        aes(Day, BaCa * 1000, col = "Ba"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "TM84"),],
-        aes(Day, BaCa * 1000, col = "Ba"),
-        size = 0.1,
-        alpha = 1) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "TM84"),], 
-        aes(Day, MnCa * 1000, col = "Mn"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "TM84"),],
-        aes(Day, MnCa * 1000, col = "Mn"),
-        size = 0.1,
-        alpha = 1) +
-    scale_y_continuous(expression("Ba/Ca [" * mu * "mol/mol]"),
-        limits = c(0, 15),
-        breaks = seq(0, 15, 5),
-        labels = seq(0, 15, 5),
-        sec.axis = sec_axis(~.,
-            name = expression("Mn/Ca [" * mu * "mol/mol]"),
-            breaks = seq(0, 15, 5),
-            labels = seq(0, 15, 5))) +
-    scale_x_continuous("",
-        limits = c(0, 1100),
-        breaks = seq(0, 1100, 150),
-        labels = NULL,
+            labels = seq(0, 3, 1 / 2))),
+  `TM84` = scale_x_continuous("Age (days)",
+        limits = c(0, 500),
+        breaks = seq(0, 1200, 100),
         sec.axis = sec_axis(~.,
             name = "Age (years)",
             breaks = seq(0, 3 * 365, 365 / 2),
-            labels = seq(0, 3, 1 / 2))) +
-    scale_colour_manual(values = elementcolors) +
-    theme_bw() +
-    theme(legend.position = "none")
-
-TM84_combined_plot <- ggarrange(TM84_MnBa_plot,
-    TM84_MgSr_plot,
-    ncol = 1)
-
-# TS85
-TS85_MgSr_plot <- ggplot(data = combined_raw) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "TS85"),], 
-        aes(Day, SrCa, col = "Sr"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "TS85"),],
-        aes(Day, SrCa, col = "Sr"),
-        size = 0.1,
-        alpha = 1) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "TS85"),], 
-        aes(Day, MgCa, col = "Mg"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "TS85"),],
-        aes(Day, MgCa, col = "Mg"),
-        size = 0.1,
-        alpha = 1) +
-    scale_y_continuous("Sr/Ca [mmol/mol]",
-        limits = c(0, 2),
-        breaks = seq(0, 2, .5),
-        labels = seq(0, 2, .5),
-        sec.axis = sec_axis(~.,
-            name = "Mg/Ca [mmol/mol]",
-            breaks = seq(0, 2, .5),
-            labels = seq(0, 2, .5))) +
-    scale_x_continuous("Age (days)",
-        limits = c(0, 1100),
-        breaks = seq(0, 1100, 100)) +
-        # sec.axis = sec_axis(~.,
-        #     name = "Age (years)",
-        #     breaks = seq(0, 265, 365 / 10),
-        #     labels = seq(0, 1, 1 / 10))) +
-    scale_colour_manual(values = elementcolors) +
-    theme_bw() +
-    theme(legend.position = "none")
-
-TS85_MnBa_plot <- ggplot(data = combined_raw) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "TS85"),], 
-        aes(Day, BaCa * 1000, col = "Ba"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "TS85"),],
-        aes(Day, BaCa * 1000, col = "Ba"),
-        size = 0.1,
-        alpha = 1) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "TS85"),], 
-        aes(Day, MnCa * 1000, col = "Mn"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "TS85"),],
-        aes(Day, MnCa * 1000, col = "Mn"),
-        size = 0.1,
-        alpha = 1) +
-    scale_y_continuous(expression("Ba/Ca [" * mu * "mol/mol]"),
-        limits = c(0, 10),
-        breaks = seq(0, 10, 2),
-        labels = seq(0, 10, 2),
-        sec.axis = sec_axis(~.,
-            name = expression("Mn/Ca [" * mu * "mol/mol]"),
-            breaks = seq(0, 10, 2),
-            labels = seq(0, 10, 2))) +
-    scale_x_continuous("",
-        limits = c(0, 1100),
-        breaks = seq(0, 1100, 100),
-        labels = NULL,
-        sec.axis = sec_axis(~.,
-            name = "Age (years)",
-            breaks = seq(0, 2 * 365, 365 / 2),
-            labels = seq(0, 2, 1 / 2))) +
-    scale_colour_manual(values = elementcolors) +
-    theme_bw() +
-    theme(legend.position = "none")
-
-TS85_combined_plot <- ggarrange(TS85_MnBa_plot,
-    TS85_MgSr_plot,
-    ncol = 1)
-
-# TSFRS1
-TSFRS1_MgSr_plot <- ggplot(data = combined_raw) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "TSFRS1"),], 
-        aes(Day, SrCa, col = "Sr"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "TSFRS1"),],
-        aes(Day, SrCa, col = "Sr"),
-        size = 0.1,
-        alpha = 1) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "TSFRS1"),], 
-        aes(Day, MgCa, col = "Mg"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "TSFRS1"),],
-        aes(Day, MgCa, col = "Mg"),
-        size = 0.1,
-        alpha = 1) +
-    scale_y_continuous("Sr/Ca [mmol/mol]",
-        limits = c(0, 2),
-        breaks = seq(0, 2, .5),
-        labels = seq(0, 2, .5),
-        sec.axis = sec_axis(~.,
-            name = "Mg/Ca [mmol/mol]",
-            breaks = seq(0, 2, .5),
-            labels = seq(0, 2, .5))) +
-    scale_x_continuous("Age (days)",
-        limits = c(0, 1100),
-        breaks = seq(0, 1100, 100)) +
-        # sec.axis = sec_axis(~.,
-        #     name = "Age (years)",
-        #     breaks = seq(0, 265, 365 / 10),
-        #     labels = seq(0, 1, 1 / 10))) +
-    scale_colour_manual(values = elementcolors) +
-    theme_bw() +
-    theme(legend.position = "none")
-
-TSFRS1_MnBa_plot <- ggplot(data = combined_raw) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "TSFRS1"),], 
-        aes(Day, BaCa * 1000, col = "Ba"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "TSFRS1"),],
-        aes(Day, BaCa * 1000, col = "Ba"),
-        size = 0.1,
-        alpha = 1) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "TSFRS1"),], 
-        aes(Day, MnCa * 1000, col = "Mn"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "TSFRS1"),],
-        aes(Day, MnCa * 1000, col = "Mn"),
-        size = 0.1,
-        alpha = 1) +
-    scale_y_continuous(expression("Ba/Ca [" * mu * "mol/mol]"),
-        limits = c(0, 4),
-        breaks = seq(0, 4, 1),
-        labels = seq(0, 4, 1),
-        sec.axis = sec_axis(~.,
-            name = expression("Mn/Ca [" * mu * "mol/mol]"),
-            breaks = seq(0, 4, 1),
-            labels = seq(0, 4, 1))) +
-    scale_x_continuous("",
-        limits = c(0, 1100),
-        breaks = seq(0, 1100, 100),
-        labels = NULL,
+            labels = seq(0, 3, 1 / 2))),
+  `TS85` = scale_x_continuous("Age (days)",
+        limits = c(0, 600),
+        breaks = seq(0, 1200, 100),
         sec.axis = sec_axis(~.,
             name = "Age (years)",
             breaks = seq(0, 3 * 365, 365 / 2),
-            labels = seq(0, 3, 1 / 2))) +
-    scale_colour_manual(values = elementcolors) +
-    theme_bw() +
-    theme(legend.position = "none")
-
-TSFRS1_combined_plot <- ggarrange(TSFRS1_MnBa_plot,
-    TSFRS1_MgSr_plot,
-    ncol = 1)
-
-# TSM1
-TSM1_MgSr_plot <- ggplot(data = combined_raw) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "TSM1"),], 
-        aes(Day, SrCa, col = "Sr"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "TSM1"),],
-        aes(Day, SrCa, col = "Sr"),
-        size = 0.1,
-        alpha = 1) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "TSM1"),], 
-        aes(Day, MgCa, col = "Mg"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "TSM1"),],
-        aes(Day, MgCa, col = "Mg"),
-        size = 0.1,
-        alpha = 1) +
-    scale_y_continuous("Sr/Ca [mmol/mol]",
-        limits = c(0, 2.5),
-        breaks = seq(0, 2.5, .5),
-        labels = seq(0, 2.5, .5),
-        sec.axis = sec_axis(~.,
-            name = "Mg/Ca [mmol/mol]",
-            breaks = seq(0, 2.5, .5),
-            labels = seq(0, 2.5, .5))) +
-    scale_x_continuous("Age (days)",
-        limits = c(0, 1100),
-        breaks = seq(0, 1100, 100)) +
-        # sec.axis = sec_axis(~.,
-        #     name = "Age (years)",
-        #     breaks = seq(0, 2.565, 365 / 10),
-        #     labels = seq(0, 1, 1 / 10))) +
-    scale_colour_manual(values = elementcolors) +
-    theme_bw() +
-    theme(legend.position = "none")
-
-TSM1_MnBa_plot <- ggplot(data = combined_raw) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "TSM1"),], 
-        aes(Day, BaCa * 1000, col = "Ba"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "TSM1"),],
-        aes(Day, BaCa * 1000, col = "Ba"),
-        size = 0.1,
-        alpha = 1) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "TSM1"),], 
-        aes(Day, MnCa * 1000, col = "Mn"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "TSM1"),],
-        aes(Day, MnCa * 1000, col = "Mn"),
-        size = 0.1,
-        alpha = 1) +
-    scale_y_continuous(expression("Ba/Ca [" * mu * "mol/mol]"),
-        limits = c(0, 6),
-        breaks = seq(0, 6, 1),
-        labels = seq(0, 6, 1),
-        sec.axis = sec_axis(~.,
-            name = expression("Mn/Ca [" * mu * "mol/mol]"),
-            breaks = seq(0, 6, 1),
-            labels = seq(0, 6, 1))) +
-    scale_x_continuous("",
-        limits = c(0, 1100),
-        breaks = seq(0, 1100, 100),
-        labels = NULL,
+            labels = seq(0, 3, 1 / 2))),
+  `TSFRS1` = scale_x_continuous("Age (days)",
+        limits = c(0, 550),
+        breaks = seq(0, 1200, 100),
         sec.axis = sec_axis(~.,
             name = "Age (years)",
             breaks = seq(0, 3 * 365, 365 / 2),
-            labels = seq(0, 3, 1 / 2))) +
-    scale_colour_manual(values = elementcolors) +
-    theme_bw() +
-    theme(legend.position = "none")
-
-TSM1_combined_plot <- ggarrange(TSM1_MnBa_plot,
-    TSM1_MgSr_plot,
-    ncol = 1)
-
-# SQSA1
-SQSA1_MgSr_plot <- ggplot(data = combined_raw) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "SQSA1"),], 
-        aes(Day, SrCa, col = "Sr"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "SQSA1"),],
-        aes(Day, SrCa, col = "Sr"),
-        size = 0.1,
-        alpha = 1) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "SQSA1"),], 
-        aes(Day, MgCa, col = "Mg"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "SQSA1"),],
-        aes(Day, MgCa, col = "Mg"),
-        size = 0.1,
-        alpha = 1) +
-    scale_y_continuous("Sr/Ca [mmol/mol]",
-        limits = c(0, 2),
-        breaks = seq(0, 2, .5),
-        labels = seq(0, 2, .5),
-        sec.axis = sec_axis(~.,
-            name = "Mg/Ca [mmol/mol]",
-            breaks = seq(0, 2, .5),
-            labels = seq(0, 2, .5))) +
-    scale_x_continuous("Age (days)",
-        limits = c(0, 1100),
-        breaks = seq(0, 1100, 100)) +
-        # sec.axis = sec_axis(~.,
-        #     name = "Age (years)",
-        #     breaks = seq(0, 265, 365 / 10),
-        #     labels = seq(0, 1, 1 / 10))) +
-    scale_colour_manual(values = elementcolors) +
-    theme_bw() +
-    theme(legend.position = "none")
-
-SQSA1_MnBa_plot <- ggplot(data = combined_raw) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "SQSA1"),], 
-        aes(Day, BaCa * 1000, col = "Ba"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "SQSA1"),],
-        aes(Day, BaCa * 1000, col = "Ba"),
-        size = 0.1,
-        alpha = 1) +
-    geom_line(data = combined_filtered[which(combined_filtered$Specimen == "SQSA1"),], 
-        aes(Day, MnCa * 1000, col = "Mn"),
-        size = 0.1,
-        alpha = 0.1) +
-    geom_line(data = combined_loess02[which(combined_filtered$Specimen == "SQSA1"),],
-        aes(Day, MnCa * 1000, col = "Mn"),
-        size = 0.1,
-        alpha = 1) +
-    scale_y_continuous(expression("Ba/Ca [" * mu * "mol/mol]"),
-        limits = c(0, 2),
-        breaks = seq(0, 2, .5),
-        labels = seq(0, 2, .5),
-        sec.axis = sec_axis(~.,
-            name = expression("Mn/Ca [" * mu * "mol/mol]"),
-            breaks = seq(0, 2, .5),
-            labels = seq(0, 2, .5))) +
-    scale_x_continuous("",
-        limits = c(0, 1100),
-        breaks = seq(0, 1100, 100),
-        labels = NULL,
+            labels = seq(0, 3, 1 / 2))),
+  `TSM1` = scale_x_continuous("Age (days)",
+        limits = c(0, 800),
+        breaks = seq(0, 1200, 200),
         sec.axis = sec_axis(~.,
             name = "Age (years)",
             breaks = seq(0, 3 * 365, 365 / 2),
-            labels = seq(0, 3, 1 / 2))) +
+            labels = seq(0, 3, 1 / 2))),
+  `SQSA1` = scale_x_continuous("Age (days)",
+        limits = c(0, 1200),
+        breaks = seq(0, 1200, 200),
+        sec.axis = sec_axis(~.,
+            name = "Age (years)",
+            breaks = seq(0, 3 * 365, 365 / 2),
+            labels = seq(0, 3, 1 / 2)))
+)
+
+# Plot tridacnid records
+Tridacna_facet_plot <- ggplot(data = combined_filtered_long[which(combined_filtered_long$Specimen %in% c("TM29", "TM84", "TS85", "TSFRS1", "TSM1", "SQSA1")),]) +
+    geom_line(data = combined_filtered_long[which(combined_filtered_long$Specimen %in% c("TM29", "TM84", "TS85", "TSFRS1", "TSM1", "SQSA1")),], 
+        aes(Day, value, col = parameter),
+        size = 0.1,
+        alpha = 0.1) +
+    geom_line(data = combined_loess02_long[which(combined_filtered_long$Specimen %in% c("TM29", "TM84", "TS85", "TSFRS1", "TSM1", "SQSA1")),],
+        aes(Day, value, col = parameter),
+        size = 1,
+        alpha = 1) +
+    facet_grid_sc(parameter ~ Specimen,
+        scales = list(x = scales_x_T, y = scales_y_T),
+        switch = "y",
+        labeller = as_labeller(c(BaCa = "Ba/Ca [umol/mol]",
+            MgCa = "Mg/Ca [mmol/mol]",
+            MnCa = "Mn/Ca [umol/mol]",
+            SrCa = "Sr/Ca [mmol/mol]",
+            TM29 = "T. maxima 29",
+            TM84 = "T. maxima 84",
+            TS85 = "T. squamosa 85",
+            TSFRS1 = "T. squamosa FRS1",
+            TSM1 = "T. squamosa M1",
+            SQSA1 = "T. squamosina"))) +
     scale_colour_manual(values = elementcolors) +
     theme_bw() +
-    theme(legend.position = "none")
+    theme(strip.background = element_blank(), # remove the background
+        strip.placement = "outside", # put labels to the left of the axis text
+        legend.position = "none")
 
-SQSA1_combined_plot <- ggarrange(SQSA1_MnBa_plot,
-    SQSA1_MgSr_plot,
-    ncol = 1)
+# Combine plots of pectinids and tridacnids
+Combined_facet_plot <- ggarrange(
+    PM_facet_plot,
+    Tridacna_facet_plot,
+    ncol = 1
+)
