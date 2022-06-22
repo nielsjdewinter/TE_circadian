@@ -7,762 +7,762 @@ require(signal)
 
 # Load and trim data (following previously established cutoffs)
 load("<path>/Shell2_1_dated_aligned_cross.rda") # Load Shell2_1 data
-dat2_1 <- dat_trim # Rename to avoid conflict
-dat2_1_trim <- dat2_1[which(dat2_1$Depth > 7000), ]
+PM2_1 <- dat_trim # Rename to avoid conflict
+PM2_1_trim <- PM2_1[which(PM2_1$Depth > 7000), ]
 
 load("<path>/Shell2_2_dated_cross.rda") # Load Shell2_2 data
-dat2_2 <- dat_trim # Rename to avoid conflict
-dat2_2_trim <- dat2_2[which(dat2_2$Depth > 3500), ]
+PM2_2 <- dat_trim # Rename to avoid conflict
+PM2_2_trim <- PM2_2[which(PM2_2$Depth > 3500), ]
 
 load("<path>/Shell3_1_dated_aligned_cross.rda") # Load Shell3_1 data
-dat3_1 <- dat_trim # Rename to avoid conflict
-dat3_1_trim <- dat3_1[which(dat3_1$Depth > 1000), ]
+PM3_1 <- dat_trim # Rename to avoid conflict
+PM3_1_trim <- PM3_1[which(PM3_1$Depth > 1000), ]
 
 load("<path>/Shell3_2_dated_cross.rda") # Load Shell3_2 data
-dat3_2 <- dat_trim # Rename to avoid conflict
-dat3_2_trim <- dat3_2[which(dat3_2$Depth > 4500), ]
+PM3_2 <- dat_trim # Rename to avoid conflict
+PM3_2_trim <- PM3_2[which(PM3_2$Depth > 4500), ]
 
 load("<path>/Shell4_dated_cross.rda") # Load Shell4 data
-dat4 <- dat_trim # Rename to avoid conflict
-dat4_trim <- dat4[which(dat4$Depth > 2000), ]
+PM4 <- dat_trim # Rename to avoid conflict
+PM4_trim <- PM4[which(PM4$Depth > 2000), ]
 
-maxima29 <- read.csv("<path>/Line_Tridacnid_NdW_29_recalc.csv")
-maxima29_trim <- maxima29[which((maxima29$depth < 52) & (maxima29$depth > 0.04)), ]
-maxima29_trim <- maxima29_trim[-which((maxima29_trim$depth < 33) & (maxima29_trim$depth > 31.5)), ]
+TM29 <- read.csv("<path>/Line_Tridacnid_NdW_29_recalc.csv")
+TM29_trim <- TM29[which((TM29$depth < 52) & (TM29$depth > 0.04)), ]
+TM29_trim <- TM29_trim[-which((TM29_trim$depth < 33) & (TM29_trim$depth > 31.5)), ]
 
-maxima84 <- read.csv("<path>/Line_Tridacnid_NdW_84_recalc.csv")
-maxima84_trim <- maxima84[which((maxima84$depth < 37) & (maxima84$depth > 0.01)), ]
-maxima84_trim <- maxima84_trim[-which((maxima84_trim$depth < 4.05) & (maxima84_trim$depth > 3.8)), ]
-maxima84_trim <- maxima84_trim[-which((maxima84_trim$depth < 4.7) & (maxima84_trim$depth > 4.5)), ]
-maxima84_trim <- maxima84_trim[-which((maxima84_trim$depth < 6.3) & (maxima84_trim$depth > 6.05)), ]
-maxima84_trim <- maxima84_trim[-which((maxima84_trim$depth < 17.3) & (maxima84_trim$depth > 17)), ]
-maxima84_trim <- maxima84_trim[-which((maxima84_trim$depth < 29.5) & (maxima84_trim$depth > 29)), ]
+TM84 <- read.csv("<path>/Line_Tridacnid_NdW_84_recalc.csv")
+TM84_trim <- TM84[which((TM84$depth < 37) & (TM84$depth > 0.01)), ]
+TM84_trim <- TM84_trim[-which((TM84_trim$depth < 4.05) & (TM84_trim$depth > 3.8)), ]
+TM84_trim <- TM84_trim[-which((TM84_trim$depth < 4.7) & (TM84_trim$depth > 4.5)), ]
+TM84_trim <- TM84_trim[-which((TM84_trim$depth < 6.3) & (TM84_trim$depth > 6.05)), ]
+TM84_trim <- TM84_trim[-which((TM84_trim$depth < 17.3) & (TM84_trim$depth > 17)), ]
+TM84_trim <- TM84_trim[-which((TM84_trim$depth < 29.5) & (TM84_trim$depth > 29)), ]
 
-squamosa85 <- read.csv("<path>/Line_Tridacnid_NdW_85_recalc.csv")
-squamosa85_trim <- squamosa85[which((squamosa85$depth < 39.7) & (squamosa85$depth > 0.6)), ]
+TS85 <- read.csv("<path>/Line_Tridacnid_NdW_85_recalc.csv")
+TS85_trim <- TS85[which((TS85$depth < 39.7) & (TS85$depth > 0.6)), ]
 
-squamosaFRS1 <- read.csv("<path>/Line_Tridacnid_NdW_FRS1_recalc.csv")
-squamosaFRS1_trim <- squamosaFRS1[which((squamosaFRS1$depth < 32.8) & (squamosaFRS1$depth > 0.04)), ]
+TSFRS1 <- read.csv("<path>/Line_Tridacnid_NdW_FRS1_recalc.csv")
+TSFRS1_trim <- TSFRS1[which((TSFRS1$depth < 32.8) & (TSFRS1$depth > 0.04)), ]
 
-squamosaM1 <- read.csv("<path>/Line_Tridacnid_NdW_M1_recalc.csv")
-squamosaM1_trim <- squamosaM1[which((squamosaM1$depth < 42.35) & (squamosaM1$depth > 0.015) & (squamosaM1$X25Mg.43Ca < 25) & (squamosaM1$X137Ba.43Ca < 0.01)), ]
-squamosaM1_trim <- squamosaM1_trim[-which((squamosaM1_trim$depth < 3.15) & (squamosaM1_trim$depth > 2.8)), ]
-squamosaM1_trim <- squamosaM1_trim[-which((squamosaM1_trim$depth < 4) & (squamosaM1_trim$depth > 3.65)), ]
+TSM1 <- read.csv("<path>/Line_Tridacnid_NdW_M1_recalc.csv")
+TSM1_trim <- TSM1[which((TSM1$depth < 42.35) & (TSM1$depth > 0.015) & (TSM1$X25Mg.43Ca < 25) & (TSM1$X137Ba.43Ca < 0.01)), ]
+TSM1_trim <- TSM1_trim[-which((TSM1_trim$depth < 3.15) & (TSM1_trim$depth > 2.8)), ]
+TSM1_trim <- TSM1_trim[-which((TSM1_trim$depth < 4) & (TSM1_trim$depth > 3.65)), ]
 
-squamosinaSQSA1 <- read.csv("<path>/Line_Tridacnid_NdW_SQSA1_recalc.csv")
-squamosinaSQSA1_trim <- squamosinaSQSA1[which((squamosinaSQSA1$depth < 38.75) & (squamosinaSQSA1$depth > 0.015) & (squamosinaSQSA1$X25Mg.43Ca < 10) & (squamosinaSQSA1$X137Ba.43Ca < 0.01)), ]
-squamosinaSQSA1_trim <- squamosinaSQSA1_trim[-which((squamosinaSQSA1_trim$depth < 4.05) & (squamosinaSQSA1_trim$depth > 3.8)), ]
-squamosinaSQSA1_trim <- squamosinaSQSA1_trim[-which((squamosinaSQSA1_trim$depth < 26) & (squamosinaSQSA1_trim$depth > 25.7)), ]
-squamosinaSQSA1_trim <- squamosinaSQSA1_trim[-which((squamosinaSQSA1_trim$depth < 25.2) & (squamosinaSQSA1_trim$depth > 24.5)), ]
+SQSA1 <- read.csv("<path>/Line_Tridacnid_NdW_SQSA1_recalc.csv")
+SQSA1_trim <- SQSA1[which((SQSA1$depth < 38.75) & (SQSA1$depth > 0.015) & (SQSA1$X25Mg.43Ca < 10) & (SQSA1$X137Ba.43Ca < 0.01)), ]
+SQSA1_trim <- SQSA1_trim[-which((SQSA1_trim$depth < 4.05) & (SQSA1_trim$depth > 3.8)), ]
+SQSA1_trim <- SQSA1_trim[-which((SQSA1_trim$depth < 26) & (SQSA1_trim$depth > 25.7)), ]
+SQSA1_trim <- SQSA1_trim[-which((SQSA1_trim$depth < 25.2) & (SQSA1_trim$depth > 24.5)), ]
 
 # Rename columns for easier reference
-colnames(maxima29_trim)[c(3:8, 10)] <- colnames(maxima84_trim)[c(3:8, 10)] <- colnames(squamosa85_trim)[c(3:8, 10)] <- colnames(squamosaFRS1_trim)[c(3:8, 10)] <- colnames(squamosaM1_trim)[c(3:8, 10)] <- colnames(squamosinaSQSA1_trim)[c(3:8, 10)] <- c("MgCa", "CaCa", "MnCa", "Sr87Ca", "SrCa", "BaCa", "Day")
-colnames(dat2_1_trim)[2:6] <- colnames(dat2_2_trim)[2:6] <- colnames(dat3_1_trim)[2:6] <- colnames(dat3_2_trim)[2:6] <- colnames(dat4_trim)[2:6] <- c("MgCa", "MnCa", "Sr87Ca", "SrCa", "BaCa")
-colnames(maxima29)[c(3:8, 10)] <- colnames(maxima84)[c(3:8, 10)] <- colnames(squamosa85)[c(3:8, 10)] <- colnames(squamosaFRS1)[c(3:8, 10)] <- colnames(squamosaM1)[c(3:8, 10)] <- colnames(squamosinaSQSA1)[c(3:8, 10)] <- c("MgCa", "CaCa", "MnCa", "Sr87Ca", "SrCa", "BaCa", "Day")
-colnames(dat2_1)[2:6] <- colnames(dat2_2)[2:6] <- colnames(dat3_1)[2:6] <- colnames(dat3_2)[2:6] <- colnames(dat4)[2:6] <- c("MgCa", "MnCa", "Sr87Ca", "SrCa", "BaCa")
+colnames(TM29_trim)[c(3:8, 10)] <- colnames(TM84_trim)[c(3:8, 10)] <- colnames(TS85_trim)[c(3:8, 10)] <- colnames(TSFRS1_trim)[c(3:8, 10)] <- colnames(TSM1_trim)[c(3:8, 10)] <- colnames(SQSA1_trim)[c(3:8, 10)] <- c("MgCa", "CaCa", "MnCa", "Sr87Ca", "SrCa", "BaCa", "Day")
+colnames(PM2_1_trim)[2:6] <- colnames(PM2_2_trim)[2:6] <- colnames(PM3_1_trim)[2:6] <- colnames(PM3_2_trim)[2:6] <- colnames(PM4_trim)[2:6] <- c("MgCa", "MnCa", "Sr87Ca", "SrCa", "BaCa")
+colnames(TM29)[c(3:8, 10)] <- colnames(TM84)[c(3:8, 10)] <- colnames(TS85)[c(3:8, 10)] <- colnames(TSFRS1)[c(3:8, 10)] <- colnames(TSM1)[c(3:8, 10)] <- colnames(SQSA1)[c(3:8, 10)] <- c("MgCa", "CaCa", "MnCa", "Sr87Ca", "SrCa", "BaCa", "Day")
+colnames(PM2_1)[2:6] <- colnames(PM2_2)[2:6] <- colnames(PM3_1)[2:6] <- colnames(PM3_2)[2:6] <- colnames(PM4)[2:6] <- c("MgCa", "MnCa", "Sr87Ca", "SrCa", "BaCa")
 
 # Add specimen columns
-dat2_1$Specimen <- "P. maximus 2_1"
-dat2_2$Specimen <- "P. maximus 2_2"
-dat3_1$Specimen <- "P. maximus 3_1"
-dat3_2$Specimen <- "P. maximus 3_2"
-dat4$Specimen <- "P. maximus 4"
-maxima29$Specimen <- "T. maxima 29"
-maxima84$Specimen <- "T. maxima 84"
-squamosa85$Specimen <- "T. squamosa 85"
-squamosaFRS1$Specimen <- "T. squamosa FRS1"
-squamosaM1$Specimen <- "T. squamosa M1"
-squamosinaSQSA1$Specimen <- "T. squamosina SQSA1"
+PM2_1$Specimen <- "P. maximus 2_1"
+PM2_2$Specimen <- "P. maximus 2_2"
+PM3_1$Specimen <- "P. maximus 3_1"
+PM3_2$Specimen <- "P. maximus 3_2"
+PM4$Specimen <- "P. maximus 4"
+TM29$Specimen <- "T. maxima 29"
+TM84$Specimen <- "T. maxima 84"
+TS85$Specimen <- "T. squamosa 85"
+TSFRS1$Specimen <- "T. squamosa FRS1"
+TSM1$Specimen <- "T. squamosa M1"
+SQSA1$Specimen <- "T. squamosina SQSA1"
 
-dat2_1_trim$Specimen <- "P. maximus 2_1 trim"
-dat2_2_trim$Specimen <- "P. maximus 2_2 trim"
-dat3_1_trim$Specimen <- "P. maximus 3_1 trim"
-dat3_2_trim$Specimen <- "P. maximus 3_2 trim"
-dat4_trim$Specimen <- "P. maximus 4 trim"
-maxima29_trim$Specimen <- "T. maxima 29 trim"
-maxima84_trim$Specimen <- "T. maxima 84 trim"
-squamosa85_trim$Specimen <- "T. squamosa 85 trim"
-squamosaFRS1_trim$Specimen <- "T. squamosa FRS1 trim"
-squamosaM1_trim$Specimen <- "T. squamosa M1 trim"
-squamosinaSQSA1_trim$Specimen <- "T. squamosina SQSA1 trim"
+PM2_1_trim$Specimen <- "P. maximus 2_1 trim"
+PM2_2_trim$Specimen <- "P. maximus 2_2 trim"
+PM3_1_trim$Specimen <- "P. maximus 3_1 trim"
+PM3_2_trim$Specimen <- "P. maximus 3_2 trim"
+PM4_trim$Specimen <- "P. maximus 4 trim"
+TM29_trim$Specimen <- "T. maxima 29 trim"
+TM84_trim$Specimen <- "T. maxima 84 trim"
+TS85_trim$Specimen <- "T. squamosa 85 trim"
+TSFRS1_trim$Specimen <- "T. squamosa FRS1 trim"
+TSM1_trim$Specimen <- "T. squamosa M1 trim"
+SQSA1_trim$Specimen <- "T. squamosina SQSA1 trim"
 
 # Filtering
 
 # Apply Savitzky-Golay filters
-dat2_1_trim2 <- dat2_1_trim
-dat2_1_trim2$BaCa[dat2_1_trim2$BaCa == 0] <- mean(dat2_1_trim2$BaCa[dat2_1_trim2$BaCa != 0]) # Remove zeroes from BaCa data for filtering and smoothing
+PM2_1_trim2 <- PM2_1_trim
+PM2_1_trim2$BaCa[PM2_1_trim2$BaCa == 0] <- mean(PM2_1_trim2$BaCa[PM2_1_trim2$BaCa != 0]) # Remove zeroes from BaCa data for filtering and smoothing
 
-dat2_1_filtered <- as.data.frame(cbind(dat2_1_trim2$Depth,
-    dat2_1_trim2$Day,
-    apply(dat2_1_trim2[, c(2, 3, 5, 6)], 2, sgolayfilt, p = 3,
+PM2_1_filtered <- as.data.frame(cbind(PM2_1_trim2$Depth,
+    PM2_1_trim2$Day,
+    apply(PM2_1_trim2[, c(2, 3, 5, 6)], 2, sgolayfilt, p = 3,
         n = 21) # 21 pts = about 1-2h (should not affect tidal cycles)
     )) # Remove high-res measurement noise
-colnames(dat2_1_filtered)[c(1, 2)] <- c("Depth", "Day")
-dat2_1_filtered$datetime <- dat2_1_trim2$datetime
+colnames(PM2_1_filtered)[c(1, 2)] <- c("Depth", "Day")
+PM2_1_filtered$datetime <- PM2_1_trim2$datetime
 
-dat2_2_trim2 <- dat2_2_trim
-dat2_2_trim2$BaCa[dat2_2_trim2$BaCa == 0] <- mean(dat2_2_trim2$BaCa[dat2_2_trim2$BaCa != 0]) # Remove zeroes from BaCa data for filtering and smoothing
+PM2_2_trim2 <- PM2_2_trim
+PM2_2_trim2$BaCa[PM2_2_trim2$BaCa == 0] <- mean(PM2_2_trim2$BaCa[PM2_2_trim2$BaCa != 0]) # Remove zeroes from BaCa data for filtering and smoothing
 
-dat2_2_filtered <- as.data.frame(cbind(dat2_2_trim2$Depth,
-    dat2_2_trim2$Day,
-    apply(dat2_2_trim2[, c(2, 3, 5, 6)], 2, sgolayfilt, p = 3,
+PM2_2_filtered <- as.data.frame(cbind(PM2_2_trim2$Depth,
+    PM2_2_trim2$Day,
+    apply(PM2_2_trim2[, c(2, 3, 5, 6)], 2, sgolayfilt, p = 3,
         n = 21) # 21 pts = about 1-2h (should not affect tidal cycles)
     )) # Remove high-res measurement noise
-colnames(dat2_2_filtered)[c(1, 2)] <- c("Depth", "Day")
-dat2_2_filtered$datetime <- dat2_2_trim2$datetime
+colnames(PM2_2_filtered)[c(1, 2)] <- c("Depth", "Day")
+PM2_2_filtered$datetime <- PM2_2_trim2$datetime
 
-dat3_1_trim2 <- dat3_1_trim
-dat3_1_trim2$BaCa[dat3_1_trim2$BaCa == 0] <- mean(dat3_1_trim2$BaCa[dat3_1_trim2$BaCa != 0]) # Remove zeroes from BaCa data for filtering and smoothing
+PM3_1_trim2 <- PM3_1_trim
+PM3_1_trim2$BaCa[PM3_1_trim2$BaCa == 0] <- mean(PM3_1_trim2$BaCa[PM3_1_trim2$BaCa != 0]) # Remove zeroes from BaCa data for filtering and smoothing
 
-dat3_1_filtered <- as.data.frame(cbind(dat3_1_trim2$Depth,
-    dat3_1_trim2$Day,
-    apply(dat3_1_trim2[, c(2, 3, 5, 6)], 2, sgolayfilt, p = 3,
+PM3_1_filtered <- as.data.frame(cbind(PM3_1_trim2$Depth,
+    PM3_1_trim2$Day,
+    apply(PM3_1_trim2[, c(2, 3, 5, 6)], 2, sgolayfilt, p = 3,
         n = 21) # 21 pts = about 1-2h (should not affect tidal cycles)
     )) # Remove high-res measurement noise
-colnames(dat3_1_filtered)[c(1, 2)] <- c("Depth", "Day")
-dat3_1_filtered$datetime <- dat3_1_trim2$datetime
+colnames(PM3_1_filtered)[c(1, 2)] <- c("Depth", "Day")
+PM3_1_filtered$datetime <- PM3_1_trim2$datetime
 
-dat3_2_trim2 <- dat3_2_trim
-dat3_2_trim2$BaCa[dat3_2_trim2$BaCa == 0] <- mean(dat3_2_trim2$BaCa[dat3_2_trim2$BaCa != 0]) # Remove zeroes from BaCa data for filtering and smoothing
+PM3_2_trim2 <- PM3_2_trim
+PM3_2_trim2$BaCa[PM3_2_trim2$BaCa == 0] <- mean(PM3_2_trim2$BaCa[PM3_2_trim2$BaCa != 0]) # Remove zeroes from BaCa data for filtering and smoothing
 
-dat3_2_filtered <- as.data.frame(cbind(dat3_2_trim2$Depth,
-    dat3_2_trim2$Day,
-    apply(dat3_2_trim2[, c(2, 3, 5, 6)], 2, sgolayfilt, p = 3,
+PM3_2_filtered <- as.data.frame(cbind(PM3_2_trim2$Depth,
+    PM3_2_trim2$Day,
+    apply(PM3_2_trim2[, c(2, 3, 5, 6)], 2, sgolayfilt, p = 3,
         n = 21) # 21 pts = about 1-2h (should not affect tidal cycles)
     )) # Remove high-res measurement noise
-colnames(dat3_2_filtered)[c(1, 2)] <- c("Depth", "Day")
-dat3_2_filtered$datetime <- dat3_2_trim2$datetime
+colnames(PM3_2_filtered)[c(1, 2)] <- c("Depth", "Day")
+PM3_2_filtered$datetime <- PM3_2_trim2$datetime
 
-dat4_trim2 <- dat4_trim
-dat4_trim2$BaCa[dat4_trim2$BaCa == 0] <- mean(dat4_trim2$BaCa[dat4_trim2$BaCa != 0]) # Remove zeroes from BaCa data for filtering and smoothing
+PM4_trim2 <- PM4_trim
+PM4_trim2$BaCa[PM4_trim2$BaCa == 0] <- mean(PM4_trim2$BaCa[PM4_trim2$BaCa != 0]) # Remove zeroes from BaCa data for filtering and smoothing
 
-dat4_filtered <- as.data.frame(cbind(dat4_trim2$Depth,
-    dat4_trim2$Day,
-    apply(dat4_trim2[, c(2, 3, 5, 6)], 2, sgolayfilt, p = 3,
+PM4_filtered <- as.data.frame(cbind(PM4_trim2$Depth,
+    PM4_trim2$Day,
+    apply(PM4_trim2[, c(2, 3, 5, 6)], 2, sgolayfilt, p = 3,
         n = 21) # 21 pts = about 1-2h (should not affect tidal cycles)
     )) # Remove high-res measurement noise
-colnames(dat4_filtered)[c(1, 2)] <- c("Depth", "Day")
-dat4_filtered$datetime <- dat4_trim2$datetime
+colnames(PM4_filtered)[c(1, 2)] <- c("Depth", "Day")
+PM4_filtered$datetime <- PM4_trim2$datetime
 
-maxima29_trim2 <- maxima29_trim
-maxima29_trim2$BaCa[maxima29_trim2$BaCa == 0] <- mean(maxima29_trim2$BaCa[maxima29_trim2$BaCa != 0]) # Remove zeroes from BaCa data for filtering and smoothing
-maxima29_trim2$SrCa[is.na(maxima29_trim2$SrCa)] <- mean(maxima29_trim2$SrCa, na.rm = TRUE) # Remove NAs from SrCa data for filtering and smoothing
-maxima29_trim2$MnCa[is.na(maxima29_trim2$MnCa)] <- mean(maxima29_trim2$MnCa, na.rm = TRUE) # Remove NAs from MnCa data for filtering and smoothing
-maxima29_trim2$MgCa[is.na(maxima29_trim2$MgCa)] <- mean(maxima29_trim2$MgCa, na.rm = TRUE) # Remove NAs from MgCa data for filtering and smoothing
-maxima29_trim2$BaCa[is.na(maxima29_trim2$BaCa)] <- mean(maxima29_trim2$BaCa, na.rm = TRUE) # Remove NAs from BaCa data for filtering and smoothing
+TM29_trim2 <- TM29_trim
+TM29_trim2$BaCa[TM29_trim2$BaCa == 0] <- mean(TM29_trim2$BaCa[TM29_trim2$BaCa != 0]) # Remove zeroes from BaCa data for filtering and smoothing
+TM29_trim2$SrCa[is.na(TM29_trim2$SrCa)] <- mean(TM29_trim2$SrCa, na.rm = TRUE) # Remove NAs from SrCa data for filtering and smoothing
+TM29_trim2$MnCa[is.na(TM29_trim2$MnCa)] <- mean(TM29_trim2$MnCa, na.rm = TRUE) # Remove NAs from MnCa data for filtering and smoothing
+TM29_trim2$MgCa[is.na(TM29_trim2$MgCa)] <- mean(TM29_trim2$MgCa, na.rm = TRUE) # Remove NAs from MgCa data for filtering and smoothing
+TM29_trim2$BaCa[is.na(TM29_trim2$BaCa)] <- mean(TM29_trim2$BaCa, na.rm = TRUE) # Remove NAs from BaCa data for filtering and smoothing
 
-maxima29_filtered <- as.data.frame(cbind(maxima29_trim2$depth,
-    maxima29_trim2$time,
-    apply(maxima29_trim2[, c(3, 5, 7, 8)], 2, sgolayfilt, p = 3,
+TM29_filtered <- as.data.frame(cbind(TM29_trim2$depth,
+    TM29_trim2$time,
+    apply(TM29_trim2[, c(3, 5, 7, 8)], 2, sgolayfilt, p = 3,
         n = 21) # 21 pts = about 1-2h (should not affect tidal cycles)
     )) # Remove high-res measurement noise
-colnames(maxima29_filtered)[c(1, 2)] <- c("depth", "Day")
+colnames(TM29_filtered)[c(1, 2)] <- c("depth", "Day")
 
-maxima84_trim2 <- maxima84_trim
-maxima84_trim2$BaCa[maxima84_trim2$BaCa == 0] <- mean(maxima84_trim2$BaCa[maxima84_trim2$BaCa != 0]) # Remove zeroes from BaCa data for filtering and smoothing
-maxima84_trim2$SrCa[is.na(maxima84_trim2$SrCa)] <- mean(maxima84_trim2$SrCa, na.rm = TRUE) # Remove NAs from SrCa data for filtering and smoothing
-maxima84_trim2$MnCa[is.na(maxima84_trim2$MnCa)] <- mean(maxima84_trim2$MnCa, na.rm = TRUE) # Remove NAs from MnCa data for filtering and smoothing
-maxima84_trim2$MgCa[is.na(maxima84_trim2$MgCa)] <- mean(maxima84_trim2$MgCa, na.rm = TRUE) # Remove NAs from MgCa data for filtering and smoothing
-maxima84_trim2$BaCa[is.na(maxima84_trim2$BaCa)] <- mean(maxima84_trim2$BaCa, na.rm = TRUE) # Remove NAs from BaCa data for filtering and smoothing
+TM84_trim2 <- TM84_trim
+TM84_trim2$BaCa[TM84_trim2$BaCa == 0] <- mean(TM84_trim2$BaCa[TM84_trim2$BaCa != 0]) # Remove zeroes from BaCa data for filtering and smoothing
+TM84_trim2$SrCa[is.na(TM84_trim2$SrCa)] <- mean(TM84_trim2$SrCa, na.rm = TRUE) # Remove NAs from SrCa data for filtering and smoothing
+TM84_trim2$MnCa[is.na(TM84_trim2$MnCa)] <- mean(TM84_trim2$MnCa, na.rm = TRUE) # Remove NAs from MnCa data for filtering and smoothing
+TM84_trim2$MgCa[is.na(TM84_trim2$MgCa)] <- mean(TM84_trim2$MgCa, na.rm = TRUE) # Remove NAs from MgCa data for filtering and smoothing
+TM84_trim2$BaCa[is.na(TM84_trim2$BaCa)] <- mean(TM84_trim2$BaCa, na.rm = TRUE) # Remove NAs from BaCa data for filtering and smoothing
 
-maxima84_filtered <- as.data.frame(cbind(maxima84_trim2$depth,
-    maxima84_trim2$time,
-    apply(maxima84_trim2[, c(3, 5, 7, 8)], 2, sgolayfilt, p = 3,
+TM84_filtered <- as.data.frame(cbind(TM84_trim2$depth,
+    TM84_trim2$time,
+    apply(TM84_trim2[, c(3, 5, 7, 8)], 2, sgolayfilt, p = 3,
         n = 21) # 21 pts = about 1-2h (should not affect tidal cycles)
     )) # Remove high-res measurement noise
-colnames(maxima84_filtered)[c(1, 2)] <- c("depth", "Day")
+colnames(TM84_filtered)[c(1, 2)] <- c("depth", "Day")
 
-squamosa85_trim2 <- squamosa85_trim
-squamosa85_trim2$BaCa[squamosa85_trim2$BaCa == 0] <- mean(squamosa85_trim2$BaCa[squamosa85_trim2$BaCa != 0]) # Remove zeroes from BaCa data for filtering and smoothing
-squamosa85_trim2$SrCa[is.na(squamosa85_trim2$SrCa)] <- mean(squamosa85_trim2$SrCa, na.rm = TRUE) # Remove NAs from SrCa data for filtering and smoothing
-squamosa85_trim2$MnCa[is.na(squamosa85_trim2$MnCa)] <- mean(squamosa85_trim2$MnCa, na.rm = TRUE) # Remove NAs from MnCa data for filtering and smoothing
-squamosa85_trim2$MgCa[is.na(squamosa85_trim2$MgCa)] <- mean(squamosa85_trim2$MgCa, na.rm = TRUE) # Remove NAs from MgCa data for filtering and smoothing
-squamosa85_trim2$BaCa[is.na(squamosa85_trim2$BaCa)] <- mean(squamosa85_trim2$BaCa, na.rm = TRUE) # Remove NAs from BaCa data for filtering and smoothing
+TS85_trim2 <- TS85_trim
+TS85_trim2$BaCa[TS85_trim2$BaCa == 0] <- mean(TS85_trim2$BaCa[TS85_trim2$BaCa != 0]) # Remove zeroes from BaCa data for filtering and smoothing
+TS85_trim2$SrCa[is.na(TS85_trim2$SrCa)] <- mean(TS85_trim2$SrCa, na.rm = TRUE) # Remove NAs from SrCa data for filtering and smoothing
+TS85_trim2$MnCa[is.na(TS85_trim2$MnCa)] <- mean(TS85_trim2$MnCa, na.rm = TRUE) # Remove NAs from MnCa data for filtering and smoothing
+TS85_trim2$MgCa[is.na(TS85_trim2$MgCa)] <- mean(TS85_trim2$MgCa, na.rm = TRUE) # Remove NAs from MgCa data for filtering and smoothing
+TS85_trim2$BaCa[is.na(TS85_trim2$BaCa)] <- mean(TS85_trim2$BaCa, na.rm = TRUE) # Remove NAs from BaCa data for filtering and smoothing
 
-squamosa85_filtered <- as.data.frame(cbind(squamosa85_trim2$depth,
-    squamosa85_trim2$time,
-    apply(squamosa85_trim2[, c(3, 5, 7, 8)], 2, sgolayfilt, p = 3,
+TS85_filtered <- as.data.frame(cbind(TS85_trim2$depth,
+    TS85_trim2$time,
+    apply(TS85_trim2[, c(3, 5, 7, 8)], 2, sgolayfilt, p = 3,
         n = 21) # 21 pts = about 1-2h (should not affect tidal cycles)
     )) # Remove high-res measurement noise
-colnames(squamosa85_filtered)[c(1, 2)] <- c("depth", "Day")
+colnames(TS85_filtered)[c(1, 2)] <- c("depth", "Day")
 
-squamosaFRS1_trim2 <- squamosaFRS1_trim
-squamosaFRS1_trim2$BaCa[squamosaFRS1_trim2$BaCa == 0] <- mean(squamosaFRS1_trim2$BaCa[squamosaFRS1_trim2$BaCa != 0]) # Remove zeroes from BaCa data for filtering and smoothing
-squamosaFRS1_trim2$SrCa[is.na(squamosaFRS1_trim2$SrCa)] <- mean(squamosaFRS1_trim2$SrCa, na.rm = TRUE) # Remove NAs from SrCa data for filtering and smoothing
-squamosaFRS1_trim2$MnCa[is.na(squamosaFRS1_trim2$MnCa)] <- mean(squamosaFRS1_trim2$MnCa, na.rm = TRUE) # Remove NAs from MnCa data for filtering and smoothing
-squamosaFRS1_trim2$MgCa[is.na(squamosaFRS1_trim2$MgCa)] <- mean(squamosaFRS1_trim2$MgCa, na.rm = TRUE) # Remove NAs from MgCa data for filtering and smoothing
-squamosaFRS1_trim2$BaCa[is.na(squamosaFRS1_trim2$BaCa)] <- mean(squamosaFRS1_trim2$BaCa, na.rm = TRUE) # Remove NAs from BaCa data for filtering and smoothing
+TSFRS1_trim2 <- TSFRS1_trim
+TSFRS1_trim2$BaCa[TSFRS1_trim2$BaCa == 0] <- mean(TSFRS1_trim2$BaCa[TSFRS1_trim2$BaCa != 0]) # Remove zeroes from BaCa data for filtering and smoothing
+TSFRS1_trim2$SrCa[is.na(TSFRS1_trim2$SrCa)] <- mean(TSFRS1_trim2$SrCa, na.rm = TRUE) # Remove NAs from SrCa data for filtering and smoothing
+TSFRS1_trim2$MnCa[is.na(TSFRS1_trim2$MnCa)] <- mean(TSFRS1_trim2$MnCa, na.rm = TRUE) # Remove NAs from MnCa data for filtering and smoothing
+TSFRS1_trim2$MgCa[is.na(TSFRS1_trim2$MgCa)] <- mean(TSFRS1_trim2$MgCa, na.rm = TRUE) # Remove NAs from MgCa data for filtering and smoothing
+TSFRS1_trim2$BaCa[is.na(TSFRS1_trim2$BaCa)] <- mean(TSFRS1_trim2$BaCa, na.rm = TRUE) # Remove NAs from BaCa data for filtering and smoothing
 
-squamosaFRS1_filtered <- as.data.frame(cbind(squamosaFRS1_trim2$depth,
-    squamosaFRS1_trim2$time,
-    apply(squamosaFRS1_trim2[, c(3, 5, 7, 8)], 2, sgolayfilt, p = 3,
+TSFRS1_filtered <- as.data.frame(cbind(TSFRS1_trim2$depth,
+    TSFRS1_trim2$time,
+    apply(TSFRS1_trim2[, c(3, 5, 7, 8)], 2, sgolayfilt, p = 3,
         n = 21) # 21 pts = about 1-2h (should not affect tidal cycles)
     )) # Remove high-res measurement noise
-colnames(squamosaFRS1_filtered)[c(1, 2)] <- c("depth", "Day")
+colnames(TSFRS1_filtered)[c(1, 2)] <- c("depth", "Day")
 
-squamosaM1_trim2 <- squamosaM1_trim
-squamosaM1_trim2$BaCa[squamosaM1_trim2$BaCa == 0] <- mean(squamosaM1_trim2$BaCa[squamosaM1_trim2$BaCa != 0]) # Remove zeroes from BaCa data for filtering and smoothing
-squamosaM1_trim2$SrCa[is.na(squamosaM1_trim2$SrCa)] <- mean(squamosaM1_trim2$SrCa, na.rm = TRUE) # Remove NAs from SrCa data for filtering and smoothing
-squamosaM1_trim2$MnCa[is.na(squamosaM1_trim2$MnCa)] <- mean(squamosaM1_trim2$MnCa, na.rm = TRUE) # Remove NAs from MnCa data for filtering and smoothing
-squamosaM1_trim2$MgCa[is.na(squamosaM1_trim2$MgCa)] <- mean(squamosaM1_trim2$MgCa, na.rm = TRUE) # Remove NAs from MgCa data for filtering and smoothing
-squamosaM1_trim2$BaCa[is.na(squamosaM1_trim2$BaCa)] <- mean(squamosaM1_trim2$BaCa, na.rm = TRUE) # Remove NAs from BaCa data for filtering and smoothing
+TSM1_trim2 <- TSM1_trim
+TSM1_trim2$BaCa[TSM1_trim2$BaCa == 0] <- mean(TSM1_trim2$BaCa[TSM1_trim2$BaCa != 0]) # Remove zeroes from BaCa data for filtering and smoothing
+TSM1_trim2$SrCa[is.na(TSM1_trim2$SrCa)] <- mean(TSM1_trim2$SrCa, na.rm = TRUE) # Remove NAs from SrCa data for filtering and smoothing
+TSM1_trim2$MnCa[is.na(TSM1_trim2$MnCa)] <- mean(TSM1_trim2$MnCa, na.rm = TRUE) # Remove NAs from MnCa data for filtering and smoothing
+TSM1_trim2$MgCa[is.na(TSM1_trim2$MgCa)] <- mean(TSM1_trim2$MgCa, na.rm = TRUE) # Remove NAs from MgCa data for filtering and smoothing
+TSM1_trim2$BaCa[is.na(TSM1_trim2$BaCa)] <- mean(TSM1_trim2$BaCa, na.rm = TRUE) # Remove NAs from BaCa data for filtering and smoothing
 
-squamosaM1_filtered <- as.data.frame(cbind(squamosaM1_trim2$depth,
-    squamosaM1_trim2$time,
-    apply(squamosaM1_trim2[, c(3, 5, 7, 8)], 2, sgolayfilt, p = 3,
+TSM1_filtered <- as.data.frame(cbind(TSM1_trim2$depth,
+    TSM1_trim2$time,
+    apply(TSM1_trim2[, c(3, 5, 7, 8)], 2, sgolayfilt, p = 3,
         n = 21) # 21 pts = about 1-2h (should not affect tidal cycles)
     )) # Remove high-res measurement noise
-colnames(squamosaM1_filtered)[c(1, 2)] <- c("depth", "Day")
+colnames(TSM1_filtered)[c(1, 2)] <- c("depth", "Day")
 
-squamosinaSQSA1_trim2 <- squamosinaSQSA1_trim
-squamosinaSQSA1_trim2$BaCa[squamosinaSQSA1_trim2$BaCa == 0] <- mean(squamosinaSQSA1_trim2$BaCa[squamosinaSQSA1_trim2$BaCa != 0]) # Remove zeroes from BaCa data for filtering and smoothing
-squamosinaSQSA1_trim2$SrCa[is.na(squamosinaSQSA1_trim2$SrCa)] <- mean(squamosinaSQSA1_trim2$SrCa, na.rm = TRUE) # Remove NAs from SrCa data for filtering and smoothing
-squamosinaSQSA1_trim2$MnCa[is.na(squamosinaSQSA1_trim2$MnCa)] <- mean(squamosinaSQSA1_trim2$MnCa, na.rm = TRUE) # Remove NAs from MnCa data for filtering and smoothing
-squamosinaSQSA1_trim2$MgCa[is.na(squamosinaSQSA1_trim2$MgCa)] <- mean(squamosinaSQSA1_trim2$MgCa, na.rm = TRUE) # Remove NAs from MgCa data for filtering and smoothing
-squamosinaSQSA1_trim2$BaCa[is.na(squamosinaSQSA1_trim2$BaCa)] <- mean(squamosinaSQSA1_trim2$BaCa, na.rm = TRUE) # Remove NAs from BaCa data for filtering and smoothing
+SQSA1_trim2 <- SQSA1_trim
+SQSA1_trim2$BaCa[SQSA1_trim2$BaCa == 0] <- mean(SQSA1_trim2$BaCa[SQSA1_trim2$BaCa != 0]) # Remove zeroes from BaCa data for filtering and smoothing
+SQSA1_trim2$SrCa[is.na(SQSA1_trim2$SrCa)] <- mean(SQSA1_trim2$SrCa, na.rm = TRUE) # Remove NAs from SrCa data for filtering and smoothing
+SQSA1_trim2$MnCa[is.na(SQSA1_trim2$MnCa)] <- mean(SQSA1_trim2$MnCa, na.rm = TRUE) # Remove NAs from MnCa data for filtering and smoothing
+SQSA1_trim2$MgCa[is.na(SQSA1_trim2$MgCa)] <- mean(SQSA1_trim2$MgCa, na.rm = TRUE) # Remove NAs from MgCa data for filtering and smoothing
+SQSA1_trim2$BaCa[is.na(SQSA1_trim2$BaCa)] <- mean(SQSA1_trim2$BaCa, na.rm = TRUE) # Remove NAs from BaCa data for filtering and smoothing
 
-squamosinaSQSA1_filtered <- as.data.frame(cbind(squamosinaSQSA1_trim2$depth,
-    squamosinaSQSA1_trim2$time,
-    apply(squamosinaSQSA1_trim2[, c(3, 5, 7, 8)], 2, sgolayfilt, p = 3,
+SQSA1_filtered <- as.data.frame(cbind(SQSA1_trim2$depth,
+    SQSA1_trim2$time,
+    apply(SQSA1_trim2[, c(3, 5, 7, 8)], 2, sgolayfilt, p = 3,
         n = 21) # 21 pts = about 1-2h (should not affect tidal cycles)
     )) # Remove high-res measurement noise
-colnames(squamosinaSQSA1_filtered)[c(1, 2)] <- c("depth", "Day")
+colnames(SQSA1_filtered)[c(1, 2)] <- c("depth", "Day")
 
 # Add specimen columns
-dat2_1_filtered$Specimen <- "P. maximus 2_1 filtered"
-dat2_2_filtered$Specimen <- "P. maximus 2_2 filtered"
-dat3_1_filtered$Specimen <- "P. maximus 3_1 filtered"
-dat3_2_filtered$Specimen <- "P. maximus 3_2 filtered"
-dat4_filtered$Specimen <- "P. maximus 4 filtered"
-maxima29_filtered$Specimen <- "T. maxima 29 filtered"
-maxima84_filtered$Specimen <- "T. maxima 84 filtered"
-squamosa85_filtered$Specimen <- "T. squamosa 85 filtered"
-squamosaFRS1_filtered$Specimen <- "T. squamosa FRS1 filtered"
-squamosaM1_filtered$Specimen <- "T. squamosa M1 filtered"
-squamosinaSQSA1_filtered$Specimen <- "T. squamosina SQSA1 filtered"
+PM2_1_filtered$Specimen <- "P. maximus 2_1 filtered"
+PM2_2_filtered$Specimen <- "P. maximus 2_2 filtered"
+PM3_1_filtered$Specimen <- "P. maximus 3_1 filtered"
+PM3_2_filtered$Specimen <- "P. maximus 3_2 filtered"
+PM4_filtered$Specimen <- "P. maximus 4 filtered"
+TM29_filtered$Specimen <- "T. maxima 29 filtered"
+TM84_filtered$Specimen <- "T. maxima 84 filtered"
+TS85_filtered$Specimen <- "T. squamosa 85 filtered"
+TSFRS1_filtered$Specimen <- "T. squamosa FRS1 filtered"
+TSM1_filtered$Specimen <- "T. squamosa M1 filtered"
+SQSA1_filtered$Specimen <- "T. squamosina SQSA1 filtered"
 
 # Smoothing
 
 # Apply LOESS smoothing
 # Loess span of 0.2 is equivalent to 50 days
-dat2_1_loess02 <- data.frame(Depth = dat2_1_trim$Depth,
-    Day = dat2_1_trim$Day,
-    MgCa = predict(loess(dat2_1_trim$MgCa ~ dat2_1_trim$Day, span = 0.2)),
-    MnCa = predict(loess(dat2_1_trim$MnCa ~ dat2_1_trim$Day, span = 0.2)),
-    SrCa = predict(loess(dat2_1_trim$SrCa ~ dat2_1_trim$Day, span = 0.2)),
-    BaCa = predict(loess(dat2_1_trim2$BaCa ~ dat2_1_trim2$Day, span = 0.2))
+PM2_1_loess02 <- data.frame(Depth = PM2_1_trim$Depth,
+    Day = PM2_1_trim$Day,
+    MgCa = predict(loess(PM2_1_trim$MgCa ~ PM2_1_trim$Day, span = 0.2)),
+    MnCa = predict(loess(PM2_1_trim$MnCa ~ PM2_1_trim$Day, span = 0.2)),
+    SrCa = predict(loess(PM2_1_trim$SrCa ~ PM2_1_trim$Day, span = 0.2)),
+    BaCa = predict(loess(PM2_1_trim2$BaCa ~ PM2_1_trim2$Day, span = 0.2))
 )
-dat2_1_loess02$datetime <- dat2_1_trim$datetime
+PM2_1_loess02$datetime <- PM2_1_trim$datetime
 
-dat2_2_loess02 <- data.frame(Depth = dat2_2_trim$Depth,
-    Day = dat2_2_trim$Day,
-    MgCa = predict(loess(dat2_2_trim$MgCa ~ dat2_2_trim$Day, span = 0.2)),
-    MnCa = predict(loess(dat2_2_trim$MnCa ~ dat2_2_trim$Day, span = 0.2)),
-    SrCa = predict(loess(dat2_2_trim$SrCa ~ dat2_2_trim$Day, span = 0.2)),
-    BaCa = predict(loess(dat2_2_trim2$BaCa ~ dat2_2_trim2$Day, span = 0.2))
+PM2_2_loess02 <- data.frame(Depth = PM2_2_trim$Depth,
+    Day = PM2_2_trim$Day,
+    MgCa = predict(loess(PM2_2_trim$MgCa ~ PM2_2_trim$Day, span = 0.2)),
+    MnCa = predict(loess(PM2_2_trim$MnCa ~ PM2_2_trim$Day, span = 0.2)),
+    SrCa = predict(loess(PM2_2_trim$SrCa ~ PM2_2_trim$Day, span = 0.2)),
+    BaCa = predict(loess(PM2_2_trim2$BaCa ~ PM2_2_trim2$Day, span = 0.2))
 )
-dat2_2_loess02$datetime <- dat2_2_trim$datetime
+PM2_2_loess02$datetime <- PM2_2_trim$datetime
 
-dat3_1_loess02 <- data.frame(Depth = dat3_1_trim$Depth,
-    Day = dat3_1_trim$Day,
-    MgCa = predict(loess(dat3_1_trim$MgCa ~ dat3_1_trim$Day, span = 0.2)),
-    MnCa = predict(loess(dat3_1_trim$MnCa ~ dat3_1_trim$Day, span = 0.2)),
-    SrCa = predict(loess(dat3_1_trim$SrCa ~ dat3_1_trim$Day, span = 0.2)),
-    BaCa = predict(loess(dat3_1_trim2$BaCa ~ dat3_1_trim2$Day, span = 0.2))
+PM3_1_loess02 <- data.frame(Depth = PM3_1_trim$Depth,
+    Day = PM3_1_trim$Day,
+    MgCa = predict(loess(PM3_1_trim$MgCa ~ PM3_1_trim$Day, span = 0.2)),
+    MnCa = predict(loess(PM3_1_trim$MnCa ~ PM3_1_trim$Day, span = 0.2)),
+    SrCa = predict(loess(PM3_1_trim$SrCa ~ PM3_1_trim$Day, span = 0.2)),
+    BaCa = predict(loess(PM3_1_trim2$BaCa ~ PM3_1_trim2$Day, span = 0.2))
 )
-dat3_1_loess02$datetime <- dat3_1_trim$datetime
+PM3_1_loess02$datetime <- PM3_1_trim$datetime
 
-dat3_2_loess02 <- data.frame(Depth = dat3_2_trim$Depth,
-    Day = dat3_2_trim$Day,
-    MgCa = predict(loess(dat3_2_trim$MgCa ~ dat3_2_trim$Day, span = 0.2)),
-    MnCa = predict(loess(dat3_2_trim$MnCa ~ dat3_2_trim$Day, span = 0.2)),
-    SrCa = predict(loess(dat3_2_trim$SrCa ~ dat3_2_trim$Day, span = 0.2)),
-    BaCa = predict(loess(dat3_2_trim2$BaCa ~ dat3_2_trim2$Day, span = 0.2))
+PM3_2_loess02 <- data.frame(Depth = PM3_2_trim$Depth,
+    Day = PM3_2_trim$Day,
+    MgCa = predict(loess(PM3_2_trim$MgCa ~ PM3_2_trim$Day, span = 0.2)),
+    MnCa = predict(loess(PM3_2_trim$MnCa ~ PM3_2_trim$Day, span = 0.2)),
+    SrCa = predict(loess(PM3_2_trim$SrCa ~ PM3_2_trim$Day, span = 0.2)),
+    BaCa = predict(loess(PM3_2_trim2$BaCa ~ PM3_2_trim2$Day, span = 0.2))
 )
-dat3_2_loess02$datetime <- dat3_2_trim$datetime
+PM3_2_loess02$datetime <- PM3_2_trim$datetime
 
-dat4_loess02 <- data.frame(Depth = dat4_trim$Depth,
-    Day = dat4_trim$Day,
-    MgCa = predict(loess(dat4_trim$MgCa ~ dat4_trim$Day, span = 0.2)),
-    MnCa = predict(loess(dat4_trim$MnCa ~ dat4_trim$Day, span = 0.2)),
-    SrCa = predict(loess(dat4_trim$SrCa ~ dat4_trim$Day, span = 0.2)),
-    BaCa = predict(loess(dat4_trim2$BaCa ~ dat4_trim2$Day, span = 0.2))
+PM4_loess02 <- data.frame(Depth = PM4_trim$Depth,
+    Day = PM4_trim$Day,
+    MgCa = predict(loess(PM4_trim$MgCa ~ PM4_trim$Day, span = 0.2)),
+    MnCa = predict(loess(PM4_trim$MnCa ~ PM4_trim$Day, span = 0.2)),
+    SrCa = predict(loess(PM4_trim$SrCa ~ PM4_trim$Day, span = 0.2)),
+    BaCa = predict(loess(PM4_trim2$BaCa ~ PM4_trim2$Day, span = 0.2))
 )
-dat4_loess02$datetime <- dat4_trim$datetime
+PM4_loess02$datetime <- PM4_trim$datetime
 
-maxima29_loess02 <- data.frame(depth = maxima29_filtered$depth,
-    Day = maxima29_filtered$Day,
-    MgCa = predict(loess(maxima29_filtered$MgCa ~ maxima29_filtered$Day, span = 0.2)),
-    MnCa = predict(loess(maxima29_filtered$MnCa ~ maxima29_filtered$Day, span = 0.2)),
-    SrCa = predict(loess(maxima29_filtered$SrCa ~ maxima29_filtered$Day, span = 0.2)),
-    BaCa = predict(loess(maxima29_filtered$BaCa ~ maxima29_filtered$Day, span = 0.2))
-)
-
-maxima84_loess02 <- data.frame(depth = maxima84_filtered$depth,
-    Day = maxima84_filtered$Day,
-    MgCa = predict(loess(maxima84_filtered$MgCa ~ maxima84_filtered$Day, span = 0.2)),
-    MnCa = predict(loess(maxima84_filtered$MnCa ~ maxima84_filtered$Day, span = 0.2)),
-    SrCa = predict(loess(maxima84_filtered$SrCa ~ maxima84_filtered$Day, span = 0.2)),
-    BaCa = predict(loess(maxima84_filtered$BaCa ~ maxima84_filtered$Day, span = 0.2))
+TM29_loess02 <- data.frame(depth = TM29_filtered$depth,
+    Day = TM29_filtered$Day,
+    MgCa = predict(loess(TM29_filtered$MgCa ~ TM29_filtered$Day, span = 0.2)),
+    MnCa = predict(loess(TM29_filtered$MnCa ~ TM29_filtered$Day, span = 0.2)),
+    SrCa = predict(loess(TM29_filtered$SrCa ~ TM29_filtered$Day, span = 0.2)),
+    BaCa = predict(loess(TM29_filtered$BaCa ~ TM29_filtered$Day, span = 0.2))
 )
 
-squamosa85_loess02 <- data.frame(depth = squamosa85_filtered$depth,
-    Day = squamosa85_filtered$Day,
-    MgCa = predict(loess(squamosa85_filtered$MgCa ~ squamosa85_filtered$Day, span = 0.2)),
-    MnCa = predict(loess(squamosa85_filtered$MnCa ~ squamosa85_filtered$Day, span = 0.2)),
-    SrCa = predict(loess(squamosa85_filtered$SrCa ~ squamosa85_filtered$Day, span = 0.2)),
-    BaCa = predict(loess(squamosa85_filtered$BaCa ~ squamosa85_filtered$Day, span = 0.2))
+TM84_loess02 <- data.frame(depth = TM84_filtered$depth,
+    Day = TM84_filtered$Day,
+    MgCa = predict(loess(TM84_filtered$MgCa ~ TM84_filtered$Day, span = 0.2)),
+    MnCa = predict(loess(TM84_filtered$MnCa ~ TM84_filtered$Day, span = 0.2)),
+    SrCa = predict(loess(TM84_filtered$SrCa ~ TM84_filtered$Day, span = 0.2)),
+    BaCa = predict(loess(TM84_filtered$BaCa ~ TM84_filtered$Day, span = 0.2))
 )
 
-squamosaFRS1_loess02 <- data.frame(depth = squamosaFRS1_filtered$depth,
-    Day = squamosaFRS1_filtered$Day,
-    MgCa = predict(loess(squamosaFRS1_filtered$MgCa ~ squamosaFRS1_filtered$Day, span = 0.2)),
-    MnCa = predict(loess(squamosaFRS1_filtered$MnCa ~ squamosaFRS1_filtered$Day, span = 0.2)),
-    SrCa = predict(loess(squamosaFRS1_filtered$SrCa ~ squamosaFRS1_filtered$Day, span = 0.2)),
-    BaCa = predict(loess(squamosaFRS1_filtered$BaCa ~ squamosaFRS1_filtered$Day, span = 0.2))
+TS85_loess02 <- data.frame(depth = TS85_filtered$depth,
+    Day = TS85_filtered$Day,
+    MgCa = predict(loess(TS85_filtered$MgCa ~ TS85_filtered$Day, span = 0.2)),
+    MnCa = predict(loess(TS85_filtered$MnCa ~ TS85_filtered$Day, span = 0.2)),
+    SrCa = predict(loess(TS85_filtered$SrCa ~ TS85_filtered$Day, span = 0.2)),
+    BaCa = predict(loess(TS85_filtered$BaCa ~ TS85_filtered$Day, span = 0.2))
 )
 
-squamosaM1_loess02 <- data.frame(depth = squamosaM1_filtered$depth,
-    Day = squamosaM1_filtered$Day,
-    MgCa = predict(loess(squamosaM1_filtered$MgCa ~ squamosaM1_filtered$Day, span = 0.2)),
-    MnCa = predict(loess(squamosaM1_filtered$MnCa ~ squamosaM1_filtered$Day, span = 0.2)),
-    SrCa = predict(loess(squamosaM1_filtered$SrCa ~ squamosaM1_filtered$Day, span = 0.2)),
-    BaCa = predict(loess(squamosaM1_filtered$BaCa ~ squamosaM1_filtered$Day, span = 0.2))
+TSFRS1_loess02 <- data.frame(depth = TSFRS1_filtered$depth,
+    Day = TSFRS1_filtered$Day,
+    MgCa = predict(loess(TSFRS1_filtered$MgCa ~ TSFRS1_filtered$Day, span = 0.2)),
+    MnCa = predict(loess(TSFRS1_filtered$MnCa ~ TSFRS1_filtered$Day, span = 0.2)),
+    SrCa = predict(loess(TSFRS1_filtered$SrCa ~ TSFRS1_filtered$Day, span = 0.2)),
+    BaCa = predict(loess(TSFRS1_filtered$BaCa ~ TSFRS1_filtered$Day, span = 0.2))
 )
 
-squamosinaSQSA1_loess02 <- data.frame(depth = squamosinaSQSA1_filtered$depth,
-    Day = squamosinaSQSA1_filtered$Day,
-    MgCa = predict(loess(squamosinaSQSA1_filtered$MgCa ~ squamosinaSQSA1_filtered$Day, span = 0.2)),
-    MnCa = predict(loess(squamosinaSQSA1_filtered$MnCa ~ squamosinaSQSA1_filtered$Day, span = 0.2)),
-    SrCa = predict(loess(squamosinaSQSA1_filtered$SrCa ~ squamosinaSQSA1_filtered$Day, span = 0.2)),
-    BaCa = predict(loess(squamosinaSQSA1_filtered$BaCa ~ squamosinaSQSA1_filtered$Day, span = 0.2))
+TSM1_loess02 <- data.frame(depth = TSM1_filtered$depth,
+    Day = TSM1_filtered$Day,
+    MgCa = predict(loess(TSM1_filtered$MgCa ~ TSM1_filtered$Day, span = 0.2)),
+    MnCa = predict(loess(TSM1_filtered$MnCa ~ TSM1_filtered$Day, span = 0.2)),
+    SrCa = predict(loess(TSM1_filtered$SrCa ~ TSM1_filtered$Day, span = 0.2)),
+    BaCa = predict(loess(TSM1_filtered$BaCa ~ TSM1_filtered$Day, span = 0.2))
 )
 
-dat2_1_loess02$Specimen <- "P. maximus 2_1 loess02"
-dat2_2_loess02$Specimen <- "P. maximus 2_2 loess02"
-dat3_1_loess02$Specimen <- "P. maximus 3_1 loess02"
-dat3_2_loess02$Specimen <- "P. maximus 3_2 loess02"
-dat4_loess02$Specimen <- "P. maximus 4 loess02"
-maxima29_loess02$Specimen <- "T. maxima 29 loess02"
-maxima84_loess02$Specimen <- "T. maxima 84 loess02"
-squamosa85_loess02$Specimen <- "T. squamosa 85 loess02"
-squamosaFRS1_loess02$Specimen <- "T. squamosa FRS1 loess02"
-squamosaM1_loess02$Specimen <- "T. squamosa M1 loess02"
-squamosinaSQSA1_loess02$Specimen <- "T. squamosina SQSA1 loess02"
+SQSA1_loess02 <- data.frame(depth = SQSA1_filtered$depth,
+    Day = SQSA1_filtered$Day,
+    MgCa = predict(loess(SQSA1_filtered$MgCa ~ SQSA1_filtered$Day, span = 0.2)),
+    MnCa = predict(loess(SQSA1_filtered$MnCa ~ SQSA1_filtered$Day, span = 0.2)),
+    SrCa = predict(loess(SQSA1_filtered$SrCa ~ SQSA1_filtered$Day, span = 0.2)),
+    BaCa = predict(loess(SQSA1_filtered$BaCa ~ SQSA1_filtered$Day, span = 0.2))
+)
+
+PM2_1_loess02$Specimen <- "P. maximus 2_1 loess02"
+PM2_2_loess02$Specimen <- "P. maximus 2_2 loess02"
+PM3_1_loess02$Specimen <- "P. maximus 3_1 loess02"
+PM3_2_loess02$Specimen <- "P. maximus 3_2 loess02"
+PM4_loess02$Specimen <- "P. maximus 4 loess02"
+TM29_loess02$Specimen <- "T. maxima 29 loess02"
+TM84_loess02$Specimen <- "T. maxima 84 loess02"
+TS85_loess02$Specimen <- "T. squamosa 85 loess02"
+TSFRS1_loess02$Specimen <- "T. squamosa FRS1 loess02"
+TSM1_loess02$Specimen <- "T. squamosa M1 loess02"
+SQSA1_loess02$Specimen <- "T. squamosina SQSA1 loess02"
 
 # Apply filtering and smoothing
-dat2_1b <- data.frame(
-    Depth = dat2_1_filtered$Depth,
-    Day = dat2_1_filtered$Day,
-    MgCa = dat2_1_filtered$MgCa - dat2_1_loess02$MgCa,
-    SrCa = dat2_1_filtered$SrCa - dat2_1_loess02$SrCa,
-    MnCa = dat2_1_filtered$MnCa - dat2_1_loess02$MnCa,
-    BaCa = dat2_1_filtered$BaCa - dat2_1_loess02$BaCa,
-    datetime = dat2_1_filtered$datetime
+PM2_1b <- data.frame(
+    Depth = PM2_1_filtered$Depth,
+    Day = PM2_1_filtered$Day,
+    MgCa = PM2_1_filtered$MgCa - PM2_1_loess02$MgCa,
+    SrCa = PM2_1_filtered$SrCa - PM2_1_loess02$SrCa,
+    MnCa = PM2_1_filtered$MnCa - PM2_1_loess02$MnCa,
+    BaCa = PM2_1_filtered$BaCa - PM2_1_loess02$BaCa,
+    datetime = PM2_1_filtered$datetime
 )
 
-dat2_2b <- data.frame(
-    Depth = dat2_2_filtered$Depth,
-    Day = dat2_2_filtered$Day,
-    MgCa = dat2_2_filtered$MgCa - dat2_2_loess02$MgCa,
-    SrCa = dat2_2_filtered$SrCa - dat2_2_loess02$SrCa,
-    MnCa = dat2_2_filtered$MnCa - dat2_2_loess02$MnCa,
-    BaCa = dat2_2_filtered$BaCa - dat2_2_loess02$BaCa,
-    datetime = dat2_2_filtered$datetime
+PM2_2b <- data.frame(
+    Depth = PM2_2_filtered$Depth,
+    Day = PM2_2_filtered$Day,
+    MgCa = PM2_2_filtered$MgCa - PM2_2_loess02$MgCa,
+    SrCa = PM2_2_filtered$SrCa - PM2_2_loess02$SrCa,
+    MnCa = PM2_2_filtered$MnCa - PM2_2_loess02$MnCa,
+    BaCa = PM2_2_filtered$BaCa - PM2_2_loess02$BaCa,
+    datetime = PM2_2_filtered$datetime
 )
 
-dat3_1b <- data.frame(
-    Depth = dat3_1_filtered$Depth,
-    Day = dat3_1_filtered$Day,
-    MgCa = dat3_1_filtered$MgCa - dat3_1_loess02$MgCa,
-    SrCa = dat3_1_filtered$SrCa - dat3_1_loess02$SrCa,
-    MnCa = dat3_1_filtered$MnCa - dat3_1_loess02$MnCa,
-    BaCa = dat3_1_filtered$BaCa - dat3_1_loess02$BaCa,
-    datetime = dat3_1_filtered$datetime
+PM3_1b <- data.frame(
+    Depth = PM3_1_filtered$Depth,
+    Day = PM3_1_filtered$Day,
+    MgCa = PM3_1_filtered$MgCa - PM3_1_loess02$MgCa,
+    SrCa = PM3_1_filtered$SrCa - PM3_1_loess02$SrCa,
+    MnCa = PM3_1_filtered$MnCa - PM3_1_loess02$MnCa,
+    BaCa = PM3_1_filtered$BaCa - PM3_1_loess02$BaCa,
+    datetime = PM3_1_filtered$datetime
 )
 
-dat3_2b <- data.frame(
-    Depth = dat3_2_filtered$Depth,
-    Day = dat3_2_filtered$Day,
-    MgCa = dat3_2_filtered$MgCa - dat3_2_loess02$MgCa,
-    SrCa = dat3_2_filtered$SrCa - dat3_2_loess02$SrCa,
-    MnCa = dat3_2_filtered$MnCa - dat3_2_loess02$MnCa,
-    BaCa = dat3_2_filtered$BaCa - dat3_2_loess02$BaCa,
-    datetime = dat3_2_filtered$datetime
+PM3_2b <- data.frame(
+    Depth = PM3_2_filtered$Depth,
+    Day = PM3_2_filtered$Day,
+    MgCa = PM3_2_filtered$MgCa - PM3_2_loess02$MgCa,
+    SrCa = PM3_2_filtered$SrCa - PM3_2_loess02$SrCa,
+    MnCa = PM3_2_filtered$MnCa - PM3_2_loess02$MnCa,
+    BaCa = PM3_2_filtered$BaCa - PM3_2_loess02$BaCa,
+    datetime = PM3_2_filtered$datetime
 )
 
-dat4b <- data.frame(
-    Depth = dat4_filtered$Depth,
-    Day = dat4_filtered$Day,
-    MgCa = dat4_filtered$MgCa - dat4_loess02$MgCa,
-    SrCa = dat4_filtered$SrCa - dat4_loess02$SrCa,
-    MnCa = dat4_filtered$MnCa - dat4_loess02$MnCa,
-    BaCa = dat4_filtered$BaCa - dat4_loess02$BaCa,
-    datetime = dat4_filtered$datetime
+PM4b <- data.frame(
+    Depth = PM4_filtered$Depth,
+    Day = PM4_filtered$Day,
+    MgCa = PM4_filtered$MgCa - PM4_loess02$MgCa,
+    SrCa = PM4_filtered$SrCa - PM4_loess02$SrCa,
+    MnCa = PM4_filtered$MnCa - PM4_loess02$MnCa,
+    BaCa = PM4_filtered$BaCa - PM4_loess02$BaCa,
+    datetime = PM4_filtered$datetime
 )
 
-maxima29b <- data.frame(
-    depth = maxima29_filtered$depth,
-    Day = maxima29_filtered$Day,
-    MgCa = maxima29_filtered$MgCa - maxima29_loess02$MgCa,
-    SrCa = maxima29_filtered$SrCa - maxima29_loess02$SrCa,
-    MnCa = maxima29_filtered$MnCa - maxima29_loess02$MnCa,
-    BaCa = maxima29_filtered$BaCa - maxima29_loess02$BaCa
+TM29b <- data.frame(
+    depth = TM29_filtered$depth,
+    Day = TM29_filtered$Day,
+    MgCa = TM29_filtered$MgCa - TM29_loess02$MgCa,
+    SrCa = TM29_filtered$SrCa - TM29_loess02$SrCa,
+    MnCa = TM29_filtered$MnCa - TM29_loess02$MnCa,
+    BaCa = TM29_filtered$BaCa - TM29_loess02$BaCa
 )
 
-maxima84b <- data.frame(
-    depth = maxima84_filtered$depth,
-    Day = maxima84_filtered$Day,
-    MgCa = maxima84_filtered$MgCa - maxima84_loess02$MgCa,
-    SrCa = maxima84_filtered$SrCa - maxima84_loess02$SrCa,
-    MnCa = maxima84_filtered$MnCa - maxima84_loess02$MnCa,
-    BaCa = maxima84_filtered$BaCa - maxima84_loess02$BaCa
+TM84b <- data.frame(
+    depth = TM84_filtered$depth,
+    Day = TM84_filtered$Day,
+    MgCa = TM84_filtered$MgCa - TM84_loess02$MgCa,
+    SrCa = TM84_filtered$SrCa - TM84_loess02$SrCa,
+    MnCa = TM84_filtered$MnCa - TM84_loess02$MnCa,
+    BaCa = TM84_filtered$BaCa - TM84_loess02$BaCa
 )
 
-squamosa85b <- data.frame(
-    depth = squamosa85_filtered$depth,
-    Day = squamosa85_filtered$Day,
-    MgCa = squamosa85_filtered$MgCa - squamosa85_loess02$MgCa,
-    SrCa = squamosa85_filtered$SrCa - squamosa85_loess02$SrCa,
-    MnCa = squamosa85_filtered$MnCa - squamosa85_loess02$MnCa,
-    BaCa = squamosa85_filtered$BaCa - squamosa85_loess02$BaCa
+TS85b <- data.frame(
+    depth = TS85_filtered$depth,
+    Day = TS85_filtered$Day,
+    MgCa = TS85_filtered$MgCa - TS85_loess02$MgCa,
+    SrCa = TS85_filtered$SrCa - TS85_loess02$SrCa,
+    MnCa = TS85_filtered$MnCa - TS85_loess02$MnCa,
+    BaCa = TS85_filtered$BaCa - TS85_loess02$BaCa
 )
 
-squamosaFRS1b <- data.frame(
-    depth = squamosaFRS1_filtered$depth,
-    Day = squamosaFRS1_filtered$Day,
-    MgCa = squamosaFRS1_filtered$MgCa - squamosaFRS1_loess02$MgCa,
-    SrCa = squamosaFRS1_filtered$SrCa - squamosaFRS1_loess02$SrCa,
-    MnCa = squamosaFRS1_filtered$MnCa - squamosaFRS1_loess02$MnCa,
-    BaCa = squamosaFRS1_filtered$BaCa - squamosaFRS1_loess02$BaCa
+TSFRS1b <- data.frame(
+    depth = TSFRS1_filtered$depth,
+    Day = TSFRS1_filtered$Day,
+    MgCa = TSFRS1_filtered$MgCa - TSFRS1_loess02$MgCa,
+    SrCa = TSFRS1_filtered$SrCa - TSFRS1_loess02$SrCa,
+    MnCa = TSFRS1_filtered$MnCa - TSFRS1_loess02$MnCa,
+    BaCa = TSFRS1_filtered$BaCa - TSFRS1_loess02$BaCa
 )
 
-squamosaM1b <- data.frame(
-    depth = squamosaM1_filtered$depth,
-    Day = squamosaM1_filtered$Day,
-    MgCa = squamosaM1_filtered$MgCa - squamosaM1_loess02$MgCa,
-    SrCa = squamosaM1_filtered$SrCa - squamosaM1_loess02$SrCa,
-    MnCa = squamosaM1_filtered$MnCa - squamosaM1_loess02$MnCa,
-    BaCa = squamosaM1_filtered$BaCa - squamosaM1_loess02$BaCa
+TSM1b <- data.frame(
+    depth = TSM1_filtered$depth,
+    Day = TSM1_filtered$Day,
+    MgCa = TSM1_filtered$MgCa - TSM1_loess02$MgCa,
+    SrCa = TSM1_filtered$SrCa - TSM1_loess02$SrCa,
+    MnCa = TSM1_filtered$MnCa - TSM1_loess02$MnCa,
+    BaCa = TSM1_filtered$BaCa - TSM1_loess02$BaCa
 )
 
-squamosinaSQSA1b <- data.frame(
-    depth = squamosinaSQSA1_filtered$depth,
-    Day = squamosinaSQSA1_filtered$Day,
-    MgCa = squamosinaSQSA1_filtered$MgCa - squamosinaSQSA1_loess02$MgCa,
-    SrCa = squamosinaSQSA1_filtered$SrCa - squamosinaSQSA1_loess02$SrCa,
-    MnCa = squamosinaSQSA1_filtered$MnCa - squamosinaSQSA1_loess02$MnCa,
-    BaCa = squamosinaSQSA1_filtered$BaCa - squamosinaSQSA1_loess02$BaCa
+SQSA1b <- data.frame(
+    depth = SQSA1_filtered$depth,
+    Day = SQSA1_filtered$Day,
+    MgCa = SQSA1_filtered$MgCa - SQSA1_loess02$MgCa,
+    SrCa = SQSA1_filtered$SrCa - SQSA1_loess02$SrCa,
+    MnCa = SQSA1_filtered$MnCa - SQSA1_loess02$MnCa,
+    BaCa = SQSA1_filtered$BaCa - SQSA1_loess02$BaCa
 )
 
-dat2_1b$Specimen <- "P. maximus 2_1 smoothed"
-dat2_2b$Specimen <- "P. maximus 2_2 smoothed"
-dat3_1b$Specimen <- "P. maximus 3_1 smoothed"
-dat3_2b$Specimen <- "P. maximus 3_2 smoothed"
-dat4b$Specimen <- "P. maximus 4 smoothed"
-maxima29b$Specimen <- "T. maxima 29 smoothed"
-maxima84b$Specimen <- "T. maxima 84 smoothed"
-squamosa85b$Specimen <- "T. squamosa 85 smoothed"
-squamosaFRS1b$Specimen <- "T. squamosa FRS1 smoothed"
-squamosaM1b$Specimen <- "T. squamosa M1 smoothed"
-squamosinaSQSA1b$Specimen <- "T. squamosina SQSA1 smoothed"
+PM2_1b$Specimen <- "P. maximus 2_1 smoothed"
+PM2_2b$Specimen <- "P. maximus 2_2 smoothed"
+PM3_1b$Specimen <- "P. maximus 3_1 smoothed"
+PM3_2b$Specimen <- "P. maximus 3_2 smoothed"
+PM4b$Specimen <- "P. maximus 4 smoothed"
+TM29b$Specimen <- "T. maxima 29 smoothed"
+TM84b$Specimen <- "T. maxima 84 smoothed"
+TS85b$Specimen <- "T. squamosa 85 smoothed"
+TSFRS1b$Specimen <- "T. squamosa FRS1 smoothed"
+TSM1b$Specimen <- "T. squamosa M1 smoothed"
+SQSA1b$Specimen <- "T. squamosina SQSA1 smoothed"
 
 # Bandpass
 
 # Load bandpass filter data
-dat2_1_bp <- read.csv("<path>/dat2_1_bp.csv", header = TRUE) # Load Shell2_1 bp data
-dat2_2_bp <- read.csv("<path>/dat2_2_bp.csv", header = TRUE) # Load Shell2_2 bp data
-dat3_1_bp <- read.csv("<path>/dat3_1_bp.csv", header = TRUE) # Load Shell3_1 bp data
-dat3_2_bp <- read.csv("<path>/dat3_2_bp.csv", header = TRUE) # Load Shell3_2 bp data
-dat4_bp <- read.csv("<path>/dat4_bp.csv", header = TRUE) # Load Shell4 bp data
-maxima29_bp <- read.csv("<path>/maxima29_bp.csv", header = TRUE) # Load maxima 29 bp data
-maxima84_bp <- read.csv("<path>/maxima84_bp.csv", header = TRUE) # Load maxima 84 bp data
-squamosa85_bp <- read.csv("<path>/squamosa85_bp.csv", header = TRUE) # Load squamosa 85 bp data
-squamosaFRS1_bp <- read.csv("<path>/squamosaFRS1_bp.csv", header = TRUE) # Load squamosa FRS1 bp data
-squamosaM1_bp <- read.csv("<path>/squamosaM1_bp.csv", header = TRUE) # Load squamosa M1 bp data
-squamosinaSQSA1_bp <- read.csv("<path>/squamosinaSQSA1_bp.csv", header = TRUE) # Load squamosina SQSA1 bp data
+PM2_1_bp <- read.csv("<path>/PM2_1_bp.csv", header = TRUE) # Load Shell2_1 bp data
+PM2_2_bp <- read.csv("<path>/PM2_2_bp.csv", header = TRUE) # Load Shell2_2 bp data
+PM3_1_bp <- read.csv("<path>/PM3_1_bp.csv", header = TRUE) # Load Shell3_1 bp data
+PM3_2_bp <- read.csv("<path>/PM3_2_bp.csv", header = TRUE) # Load Shell3_2 bp data
+PM4_bp <- read.csv("<path>/PM4_bp.csv", header = TRUE) # Load Shell4 bp data
+TM29_bp <- read.csv("<path>/TM29_bp.csv", header = TRUE) # Load maxima 29 bp data
+TM84_bp <- read.csv("<path>/TM84_bp.csv", header = TRUE) # Load maxima 84 bp data
+TS85_bp <- read.csv("<path>/TS85_bp.csv", header = TRUE) # Load squamosa 85 bp data
+TSFRS1_bp <- read.csv("<path>/TSFRS1_bp.csv", header = TRUE) # Load squamosa FRS1 bp data
+TSM1_bp <- read.csv("<path>/TSM1_bp.csv", header = TRUE) # Load squamosa M1 bp data
+SQSA1_bp <- read.csv("<path>/SQSA1_bp.csv", header = TRUE) # Load squamosina SQSA1 bp data
 
-colnames(dat2_2_bp)[4:7] <- c("SrCa_tidal", "MgCa_daily", "MnCa_daily", "BaCa_tidal")
+colnames(PM2_2_bp)[4:7] <- c("SrCa_tidal", "MgCa_daily", "MnCa_daily", "BaCa_tidal")
 
 # Add specimen columns
-dat2_1_bp$Specimen <- "P. maximus 2_1 bp"
-dat2_2_bp$Specimen <- "P. maximus 2_2 bp"
-dat3_1_bp$Specimen <- "P. maximus 3_1 bp"
-dat3_2_bp$Specimen <- "P. maximus 3_2 bp"
-dat4_bp$Specimen <- "P. maximus 4 bp"
-maxima29_bp$Specimen <- "T. maxima 29 bp"
-maxima84_bp$Specimen <- "T. maxima 84 bp"
-squamosa85_bp$Specimen <- "T. squamosa 85 bp"
-squamosaFRS1_bp$Specimen <- "T. squamosa FRS1 bp"
-squamosaM1_bp$Specimen <- "T. squamosa M1 bp"
-squamosinaSQSA1_bp$Specimen <- "T. squamosina SQSA1 bp"
+PM2_1_bp$Specimen <- "P. maximus 2_1 bp"
+PM2_2_bp$Specimen <- "P. maximus 2_2 bp"
+PM3_1_bp$Specimen <- "P. maximus 3_1 bp"
+PM3_2_bp$Specimen <- "P. maximus 3_2 bp"
+PM4_bp$Specimen <- "P. maximus 4 bp"
+TM29_bp$Specimen <- "T. maxima 29 bp"
+TM84_bp$Specimen <- "T. maxima 84 bp"
+TS85_bp$Specimen <- "T. squamosa 85 bp"
+TSFRS1_bp$Specimen <- "T. squamosa FRS1 bp"
+TSM1_bp$Specimen <- "T. squamosa M1 bp"
+SQSA1_bp$Specimen <- "T. squamosina SQSA1 bp"
 
 # Calculate variances
-dat2_1_var <- data.frame(
+PM2_1_var <- data.frame(
     Specimen = rep("P. maximus 2_1", 4),
     record = sort(c("MgCa", "SrCa", "MnCa", "BaCa")),
-    raw = apply(dat2_1[, which(colnames(dat2_1) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(dat2_1[, which(colnames(dat2_1) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))],
-    trim = apply(dat2_1_trim[, which(colnames(dat2_1_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(dat2_1_trim[, which(colnames(dat2_1_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))],
-    filt = apply(dat2_1_filtered[, which(colnames(dat2_1_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(dat2_1_filtered[, which(colnames(dat2_1_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))],
-    smooth = apply(dat2_1b[, which(colnames(dat2_1b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(dat2_1b[, which(colnames(dat2_1b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))]
+    raw = apply(PM2_1[, which(colnames(PM2_1) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(PM2_1[, which(colnames(PM2_1) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))],
+    trim = apply(PM2_1_trim[, which(colnames(PM2_1_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(PM2_1_trim[, which(colnames(PM2_1_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))],
+    filt = apply(PM2_1_filtered[, which(colnames(PM2_1_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(PM2_1_filtered[, which(colnames(PM2_1_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))],
+    smooth = apply(PM2_1b[, which(colnames(PM2_1b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(PM2_1b[, which(colnames(PM2_1b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))]
 )
-dat2_1_var$bp_daily <- NA
-dat2_1_var$bp_tidal <- NA
+PM2_1_var$bp_daily <- NA
+PM2_1_var$bp_tidal <- NA
 for(i in 1:4){
-    if(paste(dat2_1_var$record[i], "_daily", sep = "") %in% colnames(dat2_1_bp)){
-        dat2_1_var$bp_daily[i] <- var(dat2_1_bp[, which(colnames(dat2_1_bp) == paste(dat2_1_var$record[i], "_daily", sep = ""))])
+    if(paste(PM2_1_var$record[i], "_daily", sep = "") %in% colnames(PM2_1_bp)){
+        PM2_1_var$bp_daily[i] <- var(PM2_1_bp[, which(colnames(PM2_1_bp) == paste(PM2_1_var$record[i], "_daily", sep = ""))])
     }else{
-        dat2_1_var$bp_daily[i] <- NA
+        PM2_1_var$bp_daily[i] <- NA
     }
-    if(paste(dat2_1_var$record[i], "_tidal", sep = "") %in% colnames(dat2_1_bp)){
-        dat2_1_var$bp_tidal[i] <- var(dat2_1_bp[, which(colnames(dat2_1_bp) == paste(dat2_1_var$record[i], "_tidal", sep = ""))])
+    if(paste(PM2_1_var$record[i], "_tidal", sep = "") %in% colnames(PM2_1_bp)){
+        PM2_1_var$bp_tidal[i] <- var(PM2_1_bp[, which(colnames(PM2_1_bp) == paste(PM2_1_var$record[i], "_tidal", sep = ""))])
     }else{
-        dat2_1_var$bp_tidal[i] <- NA
+        PM2_1_var$bp_tidal[i] <- NA
     }
 }
 
-dat2_2_var <- data.frame(
+PM2_2_var <- data.frame(
     Specimen = rep("P. maximus 2_2", 4),
     record = sort(c("MgCa", "SrCa", "MnCa", "BaCa")),
-    raw = apply(dat2_2[, which(colnames(dat2_2) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(dat2_2[, which(colnames(dat2_2) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))],
-    trim = apply(dat2_2_trim[, which(colnames(dat2_2_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(dat2_2_trim[, which(colnames(dat2_2_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))],
-    filt = apply(dat2_2_filtered[, which(colnames(dat2_2_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(dat2_2_filtered[, which(colnames(dat2_2_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))],
-    smooth = apply(dat2_2b[, which(colnames(dat2_2b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(dat2_2b[, which(colnames(dat2_2b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))]
+    raw = apply(PM2_2[, which(colnames(PM2_2) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(PM2_2[, which(colnames(PM2_2) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))],
+    trim = apply(PM2_2_trim[, which(colnames(PM2_2_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(PM2_2_trim[, which(colnames(PM2_2_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))],
+    filt = apply(PM2_2_filtered[, which(colnames(PM2_2_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(PM2_2_filtered[, which(colnames(PM2_2_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))],
+    smooth = apply(PM2_2b[, which(colnames(PM2_2b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(PM2_2b[, which(colnames(PM2_2b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))]
 )
-dat2_2_var$bp_daily <- NA
-dat2_2_var$bp_tidal <- NA
+PM2_2_var$bp_daily <- NA
+PM2_2_var$bp_tidal <- NA
 for(i in 1:4){
-    if(paste(dat2_2_var$record[i], "_daily", sep = "") %in% colnames(dat2_2_bp)){
-        dat2_2_var$bp_daily[i] <- var(dat2_2_bp[, which(colnames(dat2_2_bp) == paste(dat2_2_var$record[i], "_daily", sep = ""))])
+    if(paste(PM2_2_var$record[i], "_daily", sep = "") %in% colnames(PM2_2_bp)){
+        PM2_2_var$bp_daily[i] <- var(PM2_2_bp[, which(colnames(PM2_2_bp) == paste(PM2_2_var$record[i], "_daily", sep = ""))])
     }else{
-        dat2_2_var$bp_daily[i] <- NA
+        PM2_2_var$bp_daily[i] <- NA
     }
-    if(paste(dat2_2_var$record[i], "_tidal", sep = "") %in% colnames(dat2_2_bp)){
-        dat2_2_var$bp_tidal[i] <- var(dat2_2_bp[, which(colnames(dat2_2_bp) == paste(dat2_2_var$record[i], "_tidal", sep = ""))])
+    if(paste(PM2_2_var$record[i], "_tidal", sep = "") %in% colnames(PM2_2_bp)){
+        PM2_2_var$bp_tidal[i] <- var(PM2_2_bp[, which(colnames(PM2_2_bp) == paste(PM2_2_var$record[i], "_tidal", sep = ""))])
     }else{
-        dat2_2_var$bp_tidal[i] <- NA
+        PM2_2_var$bp_tidal[i] <- NA
     }
 }
 
-dat3_1_var <- data.frame(
+PM3_1_var <- data.frame(
     Specimen = rep("P. maximus 3_1", 4),
     record = sort(c("MgCa", "SrCa", "MnCa", "BaCa")),
-    raw = apply(dat3_1[, which(colnames(dat3_1) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(dat3_1[, which(colnames(dat3_1) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))],
-    trim = apply(dat3_1_trim[, which(colnames(dat3_1_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(dat3_1_trim[, which(colnames(dat3_1_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))],
-    filt = apply(dat3_1_filtered[, which(colnames(dat3_1_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(dat3_1_filtered[, which(colnames(dat3_1_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))],
-    smooth = apply(dat3_1b[, which(colnames(dat3_1b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(dat3_1b[, which(colnames(dat3_1b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))]
+    raw = apply(PM3_1[, which(colnames(PM3_1) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(PM3_1[, which(colnames(PM3_1) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))],
+    trim = apply(PM3_1_trim[, which(colnames(PM3_1_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(PM3_1_trim[, which(colnames(PM3_1_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))],
+    filt = apply(PM3_1_filtered[, which(colnames(PM3_1_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(PM3_1_filtered[, which(colnames(PM3_1_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))],
+    smooth = apply(PM3_1b[, which(colnames(PM3_1b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(PM3_1b[, which(colnames(PM3_1b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))]
 )
-dat3_1_var$bp_daily <- NA
-dat3_1_var$bp_tidal <- NA
+PM3_1_var$bp_daily <- NA
+PM3_1_var$bp_tidal <- NA
 for(i in 1:4){
-    if(paste(dat3_1_var$record[i], "_daily", sep = "") %in% colnames(dat3_1_bp)){
-        dat3_1_var$bp_daily[i] <- var(dat3_1_bp[, which(colnames(dat3_1_bp) == paste(dat3_1_var$record[i], "_daily", sep = ""))])
+    if(paste(PM3_1_var$record[i], "_daily", sep = "") %in% colnames(PM3_1_bp)){
+        PM3_1_var$bp_daily[i] <- var(PM3_1_bp[, which(colnames(PM3_1_bp) == paste(PM3_1_var$record[i], "_daily", sep = ""))])
     }else{
-        dat3_1_var$bp_daily[i] <- NA
+        PM3_1_var$bp_daily[i] <- NA
     }
-    if(paste(dat3_1_var$record[i], "_tidal", sep = "") %in% colnames(dat3_1_bp)){
-        dat3_1_var$bp_tidal[i] <- var(dat3_1_bp[, which(colnames(dat3_1_bp) == paste(dat3_1_var$record[i], "_tidal", sep = ""))])
+    if(paste(PM3_1_var$record[i], "_tidal", sep = "") %in% colnames(PM3_1_bp)){
+        PM3_1_var$bp_tidal[i] <- var(PM3_1_bp[, which(colnames(PM3_1_bp) == paste(PM3_1_var$record[i], "_tidal", sep = ""))])
     }else{
-        dat3_1_var$bp_tidal[i] <- NA
+        PM3_1_var$bp_tidal[i] <- NA
     }
 }
 
-dat3_2_var <- data.frame(
+PM3_2_var <- data.frame(
     Specimen = rep("P. maximus 3_2", 4),
     record = sort(c("MgCa", "SrCa", "MnCa", "BaCa")),
-    raw = apply(dat3_2[, which(colnames(dat3_2) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(dat3_2[, which(colnames(dat3_2) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))],
-    trim = apply(dat3_2_trim[, which(colnames(dat3_2_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(dat3_2_trim[, which(colnames(dat3_2_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))],
-    filt = apply(dat3_2_filtered[, which(colnames(dat3_2_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(dat3_2_filtered[, which(colnames(dat3_2_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))],
-    smooth = apply(dat3_2b[, which(colnames(dat3_2b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(dat3_2b[, which(colnames(dat3_2b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))]
+    raw = apply(PM3_2[, which(colnames(PM3_2) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(PM3_2[, which(colnames(PM3_2) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))],
+    trim = apply(PM3_2_trim[, which(colnames(PM3_2_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(PM3_2_trim[, which(colnames(PM3_2_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))],
+    filt = apply(PM3_2_filtered[, which(colnames(PM3_2_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(PM3_2_filtered[, which(colnames(PM3_2_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))],
+    smooth = apply(PM3_2b[, which(colnames(PM3_2b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(PM3_2b[, which(colnames(PM3_2b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))]
 )
-dat3_2_var$bp_daily <- NA
-dat3_2_var$bp_tidal <- NA
+PM3_2_var$bp_daily <- NA
+PM3_2_var$bp_tidal <- NA
 for(i in 1:4){
-    if(paste(dat3_2_var$record[i], "_daily", sep = "") %in% colnames(dat3_2_bp)){
-        dat3_2_var$bp_daily[i] <- var(dat3_2_bp[, which(colnames(dat3_2_bp) == paste(dat3_2_var$record[i], "_daily", sep = ""))])
+    if(paste(PM3_2_var$record[i], "_daily", sep = "") %in% colnames(PM3_2_bp)){
+        PM3_2_var$bp_daily[i] <- var(PM3_2_bp[, which(colnames(PM3_2_bp) == paste(PM3_2_var$record[i], "_daily", sep = ""))])
     }else{
-        dat3_2_var$bp_daily[i] <- NA
+        PM3_2_var$bp_daily[i] <- NA
     }
-    if(paste(dat3_2_var$record[i], "_tidal", sep = "") %in% colnames(dat3_2_bp)){
-        dat3_2_var$bp_tidal[i] <- var(dat3_2_bp[, which(colnames(dat3_2_bp) == paste(dat3_2_var$record[i], "_tidal", sep = ""))])
+    if(paste(PM3_2_var$record[i], "_tidal", sep = "") %in% colnames(PM3_2_bp)){
+        PM3_2_var$bp_tidal[i] <- var(PM3_2_bp[, which(colnames(PM3_2_bp) == paste(PM3_2_var$record[i], "_tidal", sep = ""))])
     }else{
-        dat3_2_var$bp_tidal[i] <- NA
+        PM3_2_var$bp_tidal[i] <- NA
     }
 }
 
-dat4_var <- data.frame(
+PM4_var <- data.frame(
     Specimen = rep("P. maximus 4", 4),
     record = sort(c("MgCa", "SrCa", "MnCa", "BaCa")),
-    raw = apply(dat4[, which(colnames(dat4) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(dat4[, which(colnames(dat4) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))],
-    trim = apply(dat4_trim[, which(colnames(dat4_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(dat4_trim[, which(colnames(dat4_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))],
-    filt = apply(dat4_filtered[, which(colnames(dat4_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(dat4_filtered[, which(colnames(dat4_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))],
-    smooth = apply(dat4b[, which(colnames(dat4b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(dat4b[, which(colnames(dat4b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))]
+    raw = apply(PM4[, which(colnames(PM4) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(PM4[, which(colnames(PM4) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))],
+    trim = apply(PM4_trim[, which(colnames(PM4_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(PM4_trim[, which(colnames(PM4_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))],
+    filt = apply(PM4_filtered[, which(colnames(PM4_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(PM4_filtered[, which(colnames(PM4_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))],
+    smooth = apply(PM4b[, which(colnames(PM4b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)[order(names(apply(PM4b[, which(colnames(PM4b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var)))]
 )
-dat4_var$bp_daily <- NA
-dat4_var$bp_tidal <- NA
+PM4_var$bp_daily <- NA
+PM4_var$bp_tidal <- NA
 for(i in 1:4){
-    if(paste(dat4_var$record[i], "_daily", sep = "") %in% colnames(dat4_bp)){
-        dat4_var$bp_daily[i] <- var(dat4_bp[, which(colnames(dat4_bp) == paste(dat4_var$record[i], "_daily", sep = ""))])
+    if(paste(PM4_var$record[i], "_daily", sep = "") %in% colnames(PM4_bp)){
+        PM4_var$bp_daily[i] <- var(PM4_bp[, which(colnames(PM4_bp) == paste(PM4_var$record[i], "_daily", sep = ""))])
     }else{
-        dat4_var$bp_daily[i] <- NA
+        PM4_var$bp_daily[i] <- NA
     }
-    if(paste(dat4_var$record[i], "_tidal", sep = "") %in% colnames(dat4_bp)){
-        dat4_var$bp_tidal[i] <- var(dat4_bp[, which(colnames(dat4_bp) == paste(dat4_var$record[i], "_tidal", sep = ""))])
+    if(paste(PM4_var$record[i], "_tidal", sep = "") %in% colnames(PM4_bp)){
+        PM4_var$bp_tidal[i] <- var(PM4_bp[, which(colnames(PM4_bp) == paste(PM4_var$record[i], "_tidal", sep = ""))])
     }else{
-        dat4_var$bp_tidal[i] <- NA
+        PM4_var$bp_tidal[i] <- NA
     }
 }
 
-maxima29_var <- data.frame(
+TM29_var <- data.frame(
     Specimen = rep("T. maxima 29", 4),
     record = sort(c("MgCa", "SrCa", "MnCa", "BaCa")),
-    raw = apply(maxima29[, which(colnames(maxima29) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(maxima29[, which(colnames(maxima29) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
-    trim = apply(maxima29_trim[, which(colnames(maxima29_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(maxima29_trim[, which(colnames(maxima29_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
-    filt = apply(maxima29_filtered[, which(colnames(maxima29_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(maxima29_filtered[, which(colnames(maxima29_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
-    smooth = apply(maxima29b[, which(colnames(maxima29b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(maxima29b[, which(colnames(maxima29b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))]
+    raw = apply(TM29[, which(colnames(TM29) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(TM29[, which(colnames(TM29) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
+    trim = apply(TM29_trim[, which(colnames(TM29_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(TM29_trim[, which(colnames(TM29_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
+    filt = apply(TM29_filtered[, which(colnames(TM29_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(TM29_filtered[, which(colnames(TM29_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
+    smooth = apply(TM29b[, which(colnames(TM29b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(TM29b[, which(colnames(TM29b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))]
 )
-maxima29_var$bp_daily <- NA
-maxima29_var$bp_tidal <- NA
+TM29_var$bp_daily <- NA
+TM29_var$bp_tidal <- NA
 for(i in 1:4){
-    if(paste(maxima29_var$record[i], "_daily", sep = "") %in% colnames(maxima29_bp)){
-        maxima29_var$bp_daily[i] <- var(maxima29_bp[, which(colnames(maxima29_bp) == paste(maxima29_var$record[i], "_daily", sep = ""))])
+    if(paste(TM29_var$record[i], "_daily", sep = "") %in% colnames(TM29_bp)){
+        TM29_var$bp_daily[i] <- var(TM29_bp[, which(colnames(TM29_bp) == paste(TM29_var$record[i], "_daily", sep = ""))])
     }else{
-        maxima29_var$bp_daily[i] <- NA
+        TM29_var$bp_daily[i] <- NA
     }
-    if(paste(maxima29_var$record[i], "_tidal", sep = "") %in% colnames(maxima29_bp)){
-        maxima29_var$bp_tidal[i] <- var(maxima29_bp[, which(colnames(maxima29_bp) == paste(maxima29_var$record[i], "_tidal", sep = ""))])
+    if(paste(TM29_var$record[i], "_tidal", sep = "") %in% colnames(TM29_bp)){
+        TM29_var$bp_tidal[i] <- var(TM29_bp[, which(colnames(TM29_bp) == paste(TM29_var$record[i], "_tidal", sep = ""))])
     }else{
-        maxima29_var$bp_tidal[i] <- NA
+        TM29_var$bp_tidal[i] <- NA
     }
 }
 
-maxima84_var <- data.frame(
+TM84_var <- data.frame(
     Specimen = rep("T. maxima 84", 4),
     record = sort(c("MgCa", "SrCa", "MnCa", "BaCa")),
-    raw = apply(maxima84[, which(colnames(maxima84) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(maxima84[, which(colnames(maxima84) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
-    trim = apply(maxima84_trim[, which(colnames(maxima84_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(maxima84_trim[, which(colnames(maxima84_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
-    filt = apply(maxima84_filtered[, which(colnames(maxima84_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(maxima84_filtered[, which(colnames(maxima84_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
-    smooth = apply(maxima84b[, which(colnames(maxima84b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(maxima84b[, which(colnames(maxima84b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))]
+    raw = apply(TM84[, which(colnames(TM84) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(TM84[, which(colnames(TM84) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
+    trim = apply(TM84_trim[, which(colnames(TM84_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(TM84_trim[, which(colnames(TM84_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
+    filt = apply(TM84_filtered[, which(colnames(TM84_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(TM84_filtered[, which(colnames(TM84_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
+    smooth = apply(TM84b[, which(colnames(TM84b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(TM84b[, which(colnames(TM84b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))]
 )
-maxima84_var$bp_daily <- NA
-maxima84_var$bp_tidal <- NA
+TM84_var$bp_daily <- NA
+TM84_var$bp_tidal <- NA
 for(i in 1:4){
-    if(paste(maxima84_var$record[i], "_daily", sep = "") %in% colnames(maxima84_bp)){
-        maxima84_var$bp_daily[i] <- var(maxima84_bp[, which(colnames(maxima84_bp) == paste(maxima84_var$record[i], "_daily", sep = ""))])
+    if(paste(TM84_var$record[i], "_daily", sep = "") %in% colnames(TM84_bp)){
+        TM84_var$bp_daily[i] <- var(TM84_bp[, which(colnames(TM84_bp) == paste(TM84_var$record[i], "_daily", sep = ""))])
     }else{
-        maxima84_var$bp_daily[i] <- NA
+        TM84_var$bp_daily[i] <- NA
     }
-    if(paste(maxima84_var$record[i], "_tidal", sep = "") %in% colnames(maxima84_bp)){
-        maxima84_var$bp_tidal[i] <- var(maxima84_bp[, which(colnames(maxima84_bp) == paste(maxima84_var$record[i], "_tidal", sep = ""))])
+    if(paste(TM84_var$record[i], "_tidal", sep = "") %in% colnames(TM84_bp)){
+        TM84_var$bp_tidal[i] <- var(TM84_bp[, which(colnames(TM84_bp) == paste(TM84_var$record[i], "_tidal", sep = ""))])
     }else{
-        maxima84_var$bp_tidal[i] <- NA
+        TM84_var$bp_tidal[i] <- NA
     }
 }
 
-squamosa85_var <- data.frame(
+TS85_var <- data.frame(
     Specimen = rep("T. squamosa 85", 4),
     record = sort(c("MgCa", "SrCa", "MnCa", "BaCa")),
-    raw = apply(squamosa85[, which(colnames(squamosa85) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(squamosa85[, which(colnames(squamosa85) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
-    trim = apply(squamosa85_trim[, which(colnames(squamosa85_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(squamosa85_trim[, which(colnames(squamosa85_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
-    filt = apply(squamosa85_filtered[, which(colnames(squamosa85_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(squamosa85_filtered[, which(colnames(squamosa85_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
-    smooth = apply(squamosa85b[, which(colnames(squamosa85b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(squamosa85b[, which(colnames(squamosa85b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))]
+    raw = apply(TS85[, which(colnames(TS85) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(TS85[, which(colnames(TS85) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
+    trim = apply(TS85_trim[, which(colnames(TS85_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(TS85_trim[, which(colnames(TS85_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
+    filt = apply(TS85_filtered[, which(colnames(TS85_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(TS85_filtered[, which(colnames(TS85_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
+    smooth = apply(TS85b[, which(colnames(TS85b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(TS85b[, which(colnames(TS85b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))]
 )
-squamosa85_var$bp_daily <- NA
-squamosa85_var$bp_tidal <- NA
+TS85_var$bp_daily <- NA
+TS85_var$bp_tidal <- NA
 for(i in 1:4){
-    if(paste(squamosa85_var$record[i], "_daily", sep = "") %in% colnames(squamosa85_bp)){
-        squamosa85_var$bp_daily[i] <- var(squamosa85_bp[, which(colnames(squamosa85_bp) == paste(squamosa85_var$record[i], "_daily", sep = ""))])
+    if(paste(TS85_var$record[i], "_daily", sep = "") %in% colnames(TS85_bp)){
+        TS85_var$bp_daily[i] <- var(TS85_bp[, which(colnames(TS85_bp) == paste(TS85_var$record[i], "_daily", sep = ""))])
     }else{
-        squamosa85_var$bp_daily[i] <- NA
+        TS85_var$bp_daily[i] <- NA
     }
-    if(paste(squamosa85_var$record[i], "_tidal", sep = "") %in% colnames(squamosa85_bp)){
-        squamosa85_var$bp_tidal[i] <- var(squamosa85_bp[, which(colnames(squamosa85_bp) == paste(squamosa85_var$record[i], "_tidal", sep = ""))])
+    if(paste(TS85_var$record[i], "_tidal", sep = "") %in% colnames(TS85_bp)){
+        TS85_var$bp_tidal[i] <- var(TS85_bp[, which(colnames(TS85_bp) == paste(TS85_var$record[i], "_tidal", sep = ""))])
     }else{
-        squamosa85_var$bp_tidal[i] <- NA
+        TS85_var$bp_tidal[i] <- NA
     }
 }
 
-squamosaFRS1_var <- data.frame(
+TSFRS1_var <- data.frame(
     Specimen = rep("T. squamosa FRS1", 4),
     record = sort(c("MgCa", "SrCa", "MnCa", "BaCa")),
-    raw = apply(squamosaFRS1[, which(colnames(squamosaFRS1) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(squamosaFRS1[, which(colnames(squamosaFRS1) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
-    trim = apply(squamosaFRS1_trim[, which(colnames(squamosaFRS1_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(squamosaFRS1_trim[, which(colnames(squamosaFRS1_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
-    filt = apply(squamosaFRS1_filtered[, which(colnames(squamosaFRS1_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(squamosaFRS1_filtered[, which(colnames(squamosaFRS1_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
-    smooth = apply(squamosaFRS1b[, which(colnames(squamosaFRS1b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(squamosaFRS1b[, which(colnames(squamosaFRS1b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))]
+    raw = apply(TSFRS1[, which(colnames(TSFRS1) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(TSFRS1[, which(colnames(TSFRS1) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
+    trim = apply(TSFRS1_trim[, which(colnames(TSFRS1_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(TSFRS1_trim[, which(colnames(TSFRS1_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
+    filt = apply(TSFRS1_filtered[, which(colnames(TSFRS1_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(TSFRS1_filtered[, which(colnames(TSFRS1_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
+    smooth = apply(TSFRS1b[, which(colnames(TSFRS1b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(TSFRS1b[, which(colnames(TSFRS1b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))]
 )
-squamosaFRS1_var$bp_daily <- NA
-squamosaFRS1_var$bp_tidal <- NA
+TSFRS1_var$bp_daily <- NA
+TSFRS1_var$bp_tidal <- NA
 for(i in 1:4){
-    if(paste(squamosaFRS1_var$record[i], "_daily", sep = "") %in% colnames(squamosaFRS1_bp)){
-        squamosaFRS1_var$bp_daily[i] <- var(squamosaFRS1_bp[, which(colnames(squamosaFRS1_bp) == paste(squamosaFRS1_var$record[i], "_daily", sep = ""))])
+    if(paste(TSFRS1_var$record[i], "_daily", sep = "") %in% colnames(TSFRS1_bp)){
+        TSFRS1_var$bp_daily[i] <- var(TSFRS1_bp[, which(colnames(TSFRS1_bp) == paste(TSFRS1_var$record[i], "_daily", sep = ""))])
     }else{
-        squamosaFRS1_var$bp_daily[i] <- NA
+        TSFRS1_var$bp_daily[i] <- NA
     }
-    if(paste(squamosaFRS1_var$record[i], "_tidal", sep = "") %in% colnames(squamosaFRS1_bp)){
-        squamosaFRS1_var$bp_tidal[i] <- var(squamosaFRS1_bp[, which(colnames(squamosaFRS1_bp) == paste(squamosaFRS1_var$record[i], "_tidal", sep = ""))])
+    if(paste(TSFRS1_var$record[i], "_tidal", sep = "") %in% colnames(TSFRS1_bp)){
+        TSFRS1_var$bp_tidal[i] <- var(TSFRS1_bp[, which(colnames(TSFRS1_bp) == paste(TSFRS1_var$record[i], "_tidal", sep = ""))])
     }else{
-        squamosaFRS1_var$bp_tidal[i] <- NA
+        TSFRS1_var$bp_tidal[i] <- NA
     }
 }
 
-squamosaM1_var <- data.frame(
+TSM1_var <- data.frame(
     Specimen = rep("T. squamosa M1", 4),
     record = sort(c("MgCa", "SrCa", "MnCa", "BaCa")),
-    raw = apply(squamosaM1[, which(colnames(squamosaM1) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(squamosaM1[, which(colnames(squamosaM1) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
-    trim = apply(squamosaM1_trim[, which(colnames(squamosaM1_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(squamosaM1_trim[, which(colnames(squamosaM1_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
-    filt = apply(squamosaM1_filtered[, which(colnames(squamosaM1_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(squamosaM1_filtered[, which(colnames(squamosaM1_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
-    smooth = apply(squamosaM1b[, which(colnames(squamosaM1b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(squamosaM1b[, which(colnames(squamosaM1b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))]
+    raw = apply(TSM1[, which(colnames(TSM1) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(TSM1[, which(colnames(TSM1) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
+    trim = apply(TSM1_trim[, which(colnames(TSM1_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(TSM1_trim[, which(colnames(TSM1_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
+    filt = apply(TSM1_filtered[, which(colnames(TSM1_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(TSM1_filtered[, which(colnames(TSM1_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
+    smooth = apply(TSM1b[, which(colnames(TSM1b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(TSM1b[, which(colnames(TSM1b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))]
 )
-squamosaM1_var$bp_daily <- NA
-squamosaM1_var$bp_tidal <- NA
+TSM1_var$bp_daily <- NA
+TSM1_var$bp_tidal <- NA
 for(i in 1:4){
-    if(paste(squamosaM1_var$record[i], "_daily", sep = "") %in% colnames(squamosaM1_bp)){
-        squamosaM1_var$bp_daily[i] <- var(squamosaM1_bp[, which(colnames(squamosaM1_bp) == paste(squamosaM1_var$record[i], "_daily", sep = ""))])
+    if(paste(TSM1_var$record[i], "_daily", sep = "") %in% colnames(TSM1_bp)){
+        TSM1_var$bp_daily[i] <- var(TSM1_bp[, which(colnames(TSM1_bp) == paste(TSM1_var$record[i], "_daily", sep = ""))])
     }else{
-        squamosaM1_var$bp_daily[i] <- NA
+        TSM1_var$bp_daily[i] <- NA
     }
-    if(paste(squamosaM1_var$record[i], "_tidal", sep = "") %in% colnames(squamosaM1_bp)){
-        squamosaM1_var$bp_tidal[i] <- var(squamosaM1_bp[, which(colnames(squamosaM1_bp) == paste(squamosaM1_var$record[i], "_tidal", sep = ""))])
+    if(paste(TSM1_var$record[i], "_tidal", sep = "") %in% colnames(TSM1_bp)){
+        TSM1_var$bp_tidal[i] <- var(TSM1_bp[, which(colnames(TSM1_bp) == paste(TSM1_var$record[i], "_tidal", sep = ""))])
     }else{
-        squamosaM1_var$bp_tidal[i] <- NA
+        TSM1_var$bp_tidal[i] <- NA
     }
 }
 
-squamosinaSQSA1_var <- data.frame(
+SQSA1_var <- data.frame(
     Specimen = rep("T. squamosina SQSA1", 4),
     record = sort(c("MgCa", "SrCa", "MnCa", "BaCa")),
-    raw = apply(squamosinaSQSA1[, which(colnames(squamosinaSQSA1) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(squamosinaSQSA1[, which(colnames(squamosinaSQSA1) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
-    trim = apply(squamosinaSQSA1_trim[, which(colnames(squamosinaSQSA1_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(squamosinaSQSA1_trim[, which(colnames(squamosinaSQSA1_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
-    filt = apply(squamosinaSQSA1_filtered[, which(colnames(squamosinaSQSA1_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(squamosinaSQSA1_filtered[, which(colnames(squamosinaSQSA1_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
-    smooth = apply(squamosinaSQSA1b[, which(colnames(squamosinaSQSA1b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(squamosinaSQSA1b[, which(colnames(squamosinaSQSA1b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))]
+    raw = apply(SQSA1[, which(colnames(SQSA1) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(SQSA1[, which(colnames(SQSA1) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
+    trim = apply(SQSA1_trim[, which(colnames(SQSA1_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(SQSA1_trim[, which(colnames(SQSA1_trim) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
+    filt = apply(SQSA1_filtered[, which(colnames(SQSA1_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(SQSA1_filtered[, which(colnames(SQSA1_filtered) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))],
+    smooth = apply(SQSA1b[, which(colnames(SQSA1b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)[order(names(apply(SQSA1b[, which(colnames(SQSA1b) %in% c("MgCa", "SrCa", "MnCa", "BaCa"))], 2, var, na.rm = TRUE)))]
 )
-squamosinaSQSA1_var$bp_daily <- NA
-squamosinaSQSA1_var$bp_tidal <- NA
+SQSA1_var$bp_daily <- NA
+SQSA1_var$bp_tidal <- NA
 for(i in 1:4){
-    if(paste(squamosinaSQSA1_var$record[i], "_daily", sep = "") %in% colnames(squamosinaSQSA1_bp)){
-        squamosinaSQSA1_var$bp_daily[i] <- var(squamosinaSQSA1_bp[, which(colnames(squamosinaSQSA1_bp) == paste(squamosinaSQSA1_var$record[i], "_daily", sep = ""))])
+    if(paste(SQSA1_var$record[i], "_daily", sep = "") %in% colnames(SQSA1_bp)){
+        SQSA1_var$bp_daily[i] <- var(SQSA1_bp[, which(colnames(SQSA1_bp) == paste(SQSA1_var$record[i], "_daily", sep = ""))])
     }else{
-        squamosinaSQSA1_var$bp_daily[i] <- NA
+        SQSA1_var$bp_daily[i] <- NA
     }
-    if(paste(squamosinaSQSA1_var$record[i], "_tidal", sep = "") %in% colnames(squamosinaSQSA1_bp)){
-        squamosinaSQSA1_var$bp_tidal[i] <- var(squamosinaSQSA1_bp[, which(colnames(squamosinaSQSA1_bp) == paste(squamosinaSQSA1_var$record[i], "_tidal", sep = ""))])
+    if(paste(SQSA1_var$record[i], "_tidal", sep = "") %in% colnames(SQSA1_bp)){
+        SQSA1_var$bp_tidal[i] <- var(SQSA1_bp[, which(colnames(SQSA1_bp) == paste(SQSA1_var$record[i], "_tidal", sep = ""))])
     }else{
-        squamosinaSQSA1_var$bp_tidal[i] <- NA
+        SQSA1_var$bp_tidal[i] <- NA
     }
 }
 
 # Combine variance data for export
-combined_variance <- rbind(dat2_1_var,
-    dat2_2_var,
-    dat3_1_var,
-    dat3_2_var,
-    dat4_var,
-    maxima29_var,
-    maxima84_var,
-    squamosa85_var,
-    squamosaFRS1_var,
-    squamosaM1_var,
-    squamosinaSQSA1_var)
+combined_variance <- rbind(PM2_1_var,
+    PM2_2_var,
+    PM3_1_var,
+    PM3_2_var,
+    PM4_var,
+    TM29_var,
+    TM84_var,
+    TS85_var,
+    TSFRS1_var,
+    TSM1_var,
+    SQSA1_var)
 
 write.csv(combined_variance, "<path>/Variance_decomposition.csv")
 
@@ -770,23 +770,23 @@ write.csv(combined_variance, "<path>/Variance_decomposition.csv")
 # Example plot for specimen 2_1
 
 # Combine and demean data for comparison
-dat2_1_SrCa_all <- data.frame(
-    SrCa = c(dat2_1[, 5] - median(dat2_1[, 5]),
-        dat2_1_trim[, 5] - median(dat2_1_trim[, 5]),
-        dat2_1_filtered[, 5] - median(dat2_1_filtered[, 5]),
-        dat2_1b[, 4],
-        dat2_1_bp[, 5],
-        dat2_1_bp[, 4]),
-    Dataset = c(rep("Full dataset", length(dat2_1[, 5])),
-        rep("Trimmed dataset", length(dat2_1_trim[, 5])),
-        rep("Filtered dataset", length(dat2_1_filtered[, 5])),
-        rep("Smoothed dataset", length(dat2_1b[, 4])),
-        rep("Daily variability", length(dat2_1_bp[, 5])),
-        rep("Tidal (12h) variability", length(dat2_1_bp[, 4])))
+PM2_1_SrCa_all <- data.frame(
+    SrCa = c(PM2_1[, 5] - median(PM2_1[, 5]),
+        PM2_1_trim[, 5] - median(PM2_1_trim[, 5]),
+        PM2_1_filtered[, 5] - median(PM2_1_filtered[, 5]),
+        PM2_1b[, 4],
+        PM2_1_bp[, 5],
+        PM2_1_bp[, 4]),
+    Dataset = c(rep("Full dataset", length(PM2_1[, 5])),
+        rep("Trimmed dataset", length(PM2_1_trim[, 5])),
+        rep("Filtered dataset", length(PM2_1_filtered[, 5])),
+        rep("Smoothed dataset", length(PM2_1b[, 4])),
+        rep("Daily variability", length(PM2_1_bp[, 5])),
+        rep("Tidal (12h) variability", length(PM2_1_bp[, 4])))
 )
 
 # Order factor of categories
-dat2_1_SrCa_all$Dataset <- factor(dat2_1_SrCa_all$Dataset, levels = unique(dat2_1_SrCa_all$Dataset))
+PM2_1_SrCa_all$Dataset <- factor(PM2_1_SrCa_all$Dataset, levels = unique(PM2_1_SrCa_all$Dataset))
 
 # Create colorscale
 Specimencolors <- c(brewer.pal(11, "RdBu")[11:7], "#000000", brewer.pal(11, "RdBu")[5:1])
@@ -794,13 +794,13 @@ names(Specimencolors) <- c("TM29", "TM84", "TS85", "TSFRS1", "TSM1", "SQSA1", "P
 
 # Datasetcolors <- rep(Specimencolors[7], 6)
 Datasetcolors <- brewer.pal(6, "Greens")
-names(Datasetcolors) <- unique(dat2_1_SrCa_all$Dataset)
+names(Datasetcolors) <- unique(PM2_1_SrCa_all$Dataset)
 
-Varlabels <- data.frame(Dataset = as.character(unique(dat2_1_SrCa_all$Dataset)),
+Varlabels <- data.frame(Dataset = as.character(unique(PM2_1_SrCa_all$Dataset)),
     SrCa = rep(-1, 6),
-    var = as.numeric(dat2_1_var[4, -(1:2)]))
+    var = as.numeric(PM2_1_var[4, -(1:2)]))
 
-SrCa_2_1_varplot <- ggplot(data = dat2_1_SrCa_all) +
+SrCa_2_1_varplot <- ggplot(data = PM2_1_SrCa_all) +
     geom_violin(aes(x = Dataset,
             y = SrCa,
             fill = Dataset),
@@ -869,6 +869,51 @@ var_decomp_summary2$record <- ordered(var_decomp_summary2$record, levels = uniqu
 # Create colorscale
 Specimencolors <- c(brewer.pal(11, "RdBu")[11:7], "#000000", brewer.pal(11, "RdBu")[5:1])
 names(Specimencolors) <- c("TM29", "TM84", "TS85", "TSFRS1", "TSM1", "SQSA1", "PM2_1", "PM2_2", "PM3_1", "PM3_2", "PM4")
+
+Varcomp_daily_bar <- ggplot(data = var_decomp_summary2[which(var_decomp_summary2$daily_rel > 0), ],
+        aes(x = record,
+            y = daily_rel,
+            fill = Specimen),
+        color = NA) +
+    geom_bar(stat="identity",
+        width = 1,
+        position = position_dodge2(width = 0.9, preserve = "single")) +
+    scale_fill_manual(values = Specimencolors) +
+    scale_y_continuous("Percentage of variance (%)",
+        breaks = seq(0, 0.2, 0.05),
+        labels = seq(0, 20, 5),
+        minor_breaks = seq(0, 0.2, 0.01),
+        limits = c(0, 0.21)) +
+    scale_x_discrete("") +
+    ggtitle("Daily variability") +
+    theme_classic()
+
+Varcomp_tidal_bar <- ggplot(data = var_decomp_summary2[which(var_decomp_summary2$tidal_rel > 0), ],
+        aes(x = record,
+            y = tidal_rel,
+            fill = Specimen),
+        color = NA) +
+    geom_bar(stat="identity",
+        width = 1,
+        position = position_dodge2(width = 0.9, preserve = "single")) +
+    scale_fill_manual(values = Specimencolors) +
+    scale_y_continuous("Percentage of variance (%)",
+        breaks = seq(0, 0.2, 0.05),
+        labels = seq(0, 20, 5),
+        minor_breaks = seq(0, 0.2, 0.01),
+        limits = c(0, 0.21)) +
+    scale_x_discrete("") +
+    ggtitle("Tidal variability") +
+    theme_classic()
+
+combined_varcomp_bar_summary <- ggarrange(Varcomp_daily_bar,
+    Varcomp_tidal_bar,
+    ncol = 2,
+    legend = "right",
+    common.legend = TRUE)
+
+# ------------------------------------------------------------------------------
+# As scatterplot
 
 Varcomp_summary_plot_daily <- ggplot(data = var_decomp_summary2,
         aes(x = record,
