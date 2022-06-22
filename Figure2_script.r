@@ -9,6 +9,9 @@ require(gridExtra)
 require(signal)
 require(ggpubr)
 
+devtools::install_github("zeehio/facetscales") # Install facetscales package
+library(facetscales)
+
 # Load and trim data (following previously established cutoffs)
 load("<path>/Shell2_1_dated_aligned_cross.rda") # Load Shell2_1 data
 PM2_1 <- dat_trim # Rename to avoid conflict
