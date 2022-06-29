@@ -4,6 +4,7 @@ require(tidyverse)
 require(RColorBrewer)
 require(gridExtra)
 require(signal)
+require(ggpubr)
 
 # Load and trim data (following previously established cutoffs)
 load("<path>/Shell2_1_dated_aligned_cross.rda") # Load Shell2_1 data
