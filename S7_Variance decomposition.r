@@ -470,17 +470,17 @@ squamosinaSQSA1b$Specimen <- "T. squamosina SQSA1 smoothed"
 # Bandpass
 
 # Load bandpass filter data
-dat2_1_bp <- read.csv("<path>/dat2_1_bp.csv", header = TRUE) # Load Shell2_1 bp data
-dat2_2_bp <- read.csv("<path>/dat2_2_bp.csv", header = TRUE) # Load Shell2_2 bp data
-dat3_1_bp <- read.csv("<path>/dat3_1_bp.csv", header = TRUE) # Load Shell3_1 bp data
-dat3_2_bp <- read.csv("<path>/dat3_2_bp.csv", header = TRUE) # Load Shell3_2 bp data
-dat4_bp <- read.csv("<path>/dat4_bp.csv", header = TRUE) # Load Shell4 bp data
-maxima29_bp <- read.csv("<path>/maxima29_bp.csv", header = TRUE) # Load maxima 29 bp data
-maxima84_bp <- read.csv("<path>/maxima84_bp.csv", header = TRUE) # Load maxima 84 bp data
-squamosa85_bp <- read.csv("<path>/squamosa85_bp.csv", header = TRUE) # Load squamosa 85 bp data
-squamosaFRS1_bp <- read.csv("<path>/squamosaFRS1_bp.csv", header = TRUE) # Load squamosa FRS1 bp data
-squamosaM1_bp <- read.csv("<path>/squamosaM1_bp.csv", header = TRUE) # Load squamosa M1 bp data
-squamosinaSQSA1_bp <- read.csv("<path>/squamosinaSQSA1_bp.csv", header = TRUE) # Load squamosina SQSA1 bp data
+dat2_1_bp <- read.csv("E:/Dropbox/Research/postdoc/Side projects/Bivalve photosymbiosis and gigantism/Pectinids_Lukas/Data renaissance/Spectral analysis 02/dat2_1_bp.csv", header = TRUE) # Load Shell2_1 bp data
+dat2_2_bp <- read.csv("E:/Dropbox/Research/postdoc/Side projects/Bivalve photosymbiosis and gigantism/Pectinids_Lukas/Data renaissance/Spectral analysis 02/dat2_2_bp.csv", header = TRUE) # Load Shell2_2 bp data
+dat3_1_bp <- read.csv("E:/Dropbox/Research/postdoc/Side projects/Bivalve photosymbiosis and gigantism/Pectinids_Lukas/Data renaissance/Spectral analysis 02/dat3_1_bp.csv", header = TRUE) # Load Shell3_1 bp data
+dat3_2_bp <- read.csv("E:/Dropbox/Research/postdoc/Side projects/Bivalve photosymbiosis and gigantism/Pectinids_Lukas/Data renaissance/Spectral analysis 02/dat3_2_bp.csv", header = TRUE) # Load Shell3_2 bp data
+dat4_bp <- read.csv("E:/Dropbox/Research/postdoc/Side projects/Bivalve photosymbiosis and gigantism/Pectinids_Lukas/Data renaissance/Spectral analysis 02/dat4_bp.csv", header = TRUE) # Load Shell4 bp data
+maxima29_bp <- read.csv("E:/Dropbox/Research/postdoc/Side projects/Bivalve photosymbiosis and gigantism/Tridacnids_Dan/Data renaissance/Spectral analysis/maxima29_bp.csv", header = TRUE) # Load maxima 29 bp data
+maxima84_bp <- read.csv("E:/Dropbox/Research/postdoc/Side projects/Bivalve photosymbiosis and gigantism/Tridacnids_Dan/Data renaissance/Spectral analysis/maxima84_bp.csv", header = TRUE) # Load maxima 84 bp data
+squamosa85_bp <- read.csv("E:/Dropbox/Research/postdoc/Side projects/Bivalve photosymbiosis and gigantism/Tridacnids_Dan/Data renaissance/Spectral analysis/squamosa85_bp.csv", header = TRUE) # Load squamosa 85 bp data
+squamosaFRS1_bp <- read.csv("E:/Dropbox/Research/postdoc/Side projects/Bivalve photosymbiosis and gigantism/Tridacnids_Dan/Data renaissance/Spectral analysis/squamosaFRS1_bp.csv", header = TRUE) # Load squamosa FRS1 bp data
+squamosaM1_bp <- read.csv("E:/Dropbox/Research/postdoc/Side projects/Bivalve photosymbiosis and gigantism/Tridacnids_Dan/Data renaissance/Spectral analysis/squamosaM1_bp.csv", header = TRUE) # Load squamosa M1 bp data
+squamosinaSQSA1_bp <- read.csv("E:/Dropbox/Research/postdoc/Side projects/Bivalve photosymbiosis and gigantism/Tridacnids_Dan/Data renaissance/Spectral analysis/squamosinaSQSA1_bp.csv", header = TRUE) # Load squamosina SQSA1 bp data
 
 colnames(dat2_2_bp)[4:7] <- c("SrCa_tidal", "MgCa_daily", "MnCa_daily", "BaCa_tidal")
 
@@ -830,7 +830,7 @@ SrCa_2_1_varplot <- ggplot(data = dat2_1_SrCa_all) +
 # Plot summary of variance decomposition
 
 # Load summary data
-var_decomp_summary <- read.csv("E:/Dropbox/Research/postdoc/Side projects/Bivalve photosymbiosis and gigantism/Variance decomposition/Variance_rel_smooth_summary.csv", header = TRUE)
+var_decomp_summary <- read.csv("<path>/Variance_rel_smooth_summary.csv", header = TRUE)
 
 Varcomp_summary_plot <- ggplot(subset(var_decomp_summary, stat != "mean"),
         aes(x = interaction(stat, cycle),
@@ -849,7 +849,7 @@ Varcomp_summary_plot <- ggplot(subset(var_decomp_summary, stat != "mean"),
     theme_bw()
 
 # Load full summary
-var_decomp_summary2 <- read.csv("E:/Dropbox/Research/postdoc/Side projects/Bivalve photosymbiosis and gigantism/Variance decomposition/Variance_decomposition.csv", header = TRUE)
+var_decomp_summary2 <- read.csv("<path>/Variance_decomposition.csv", header = TRUE)
 var_decomp_summary2$Specimen_name <- var_decomp_summary2$Specimen # Store full name
 var_decomp_summary2$Specimen <- c(rep("P. maximus", 20), # Rename specimen column
     rep("T. maxima", 8),
@@ -864,57 +864,9 @@ var_decomp_summary2$daily_rel[which(is.na(var_decomp_summary2$daily_rel))] <- 0
 var_decomp_summary2$tidal_rel[which(is.na(var_decomp_summary2$tidal_rel))] <- 0
 var_decomp_summary2$record <- ordered(var_decomp_summary2$record, levels = unique(var_decomp_summary2$record))
 
-# Variance composition summary plot with breakdown per specimen
-
-Specimencolors <- c(brewer.pal(11, "RdBu")[10], brewer.pal(11, "RdBu")[4], brewer.pal(11, "RdBu")[3], brewer.pal(11, "RdBu")[2], brewer.pal(11, "RdBu")[1])
-names(Specimencolors) <- unique(var_decomp_summary2$Specimen)
-
-Varcomp_summary_plot_daily <- ggplot(data = var_decomp_summary2,
-        aes(x = record,
-            y = daily_rel,
-            color = Specimen)) +
-    geom_point(cex = 3,
-        pch = 19) +
-    geom_line(data = var_decomp_summary2[which(var_decomp_summary2$Specimen == "T. squamosa M1"),],
-        aes(x = record,
-            y = daily_rel,
-            group = Specimen,
-            color = Specimen),
-        size = 1,
-        alpha = 0.5) +
-    scale_color_manual(values = Specimencolors) +
-    scale_y_continuous("Percentage of variance (%)",
-        breaks = seq(0, 0.2, 0.05),
-        labels = seq(0, 20, 5),
-        minor_breaks = seq(0, 0.2, 0.01),
-        limits = c(0, 0.21)) +
-    scale_x_discrete("") +
-    ggtitle("Daily variability") +
-    theme_bw()
-
-Varcomp_summary_plot_tidal <- ggplot(data = var_decomp_summary2,
-        aes(x = record,
-            y = tidal_rel,
-            color = Specimen)) +
-    geom_point(cex = 3,
-        pch = 19) +
-    geom_line(data = var_decomp_summary2[which(var_decomp_summary2$Specimen == "T. squamosa M1"),],
-        aes(x = record,
-            y = tidal_rel,
-            group = Specimen,
-            color = Specimen),
-        size = 1,
-        alpha = 0.5) +
-    scale_color_manual(values = Specimencolors) +
-    scale_y_continuous("Percentage of variance (%)",
-        breaks = seq(0, 0.2, 0.05),
-        labels = seq(0, 20, 5),
-        minor_breaks = seq(0, 0.2, 0.01),
-        limits = c(0, 0.21)) +
-    scale_x_discrete("") +
-    ggtitle("Tidal variability") +
-    theme_bw()
-
-combined_varcomp_summary <- grid.arrange(Varcomp_summary_plot_daily + theme(legend.position = "none"),
-    Varcomp_summary_plot_tidal + theme(legend.position = "none"),
-    ncol = 2)
+# Apply Wilcoxon test on differences between daily and tidal varianced between pectinids and tridacnids
+var_decomp_summary2$Genus <- c(rep("Pecten", 20), rep("Tridacna", 24))
+var_decomp_summary2$daily_rel[var_decomp_summary2$daily_rel == 0] <- NA
+var_decomp_summary2$tidal_rel[var_decomp_summary2$tidal_rel == 0] <- NA
+wilcox.test(daily_rel ~ Genus, data = var_decomp_summary2)
+wilcox.test(tidal_rel ~ Genus, data = var_decomp_summary2)
