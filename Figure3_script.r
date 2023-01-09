@@ -31,7 +31,7 @@ PM2_2_Srplot <- ggplot(PM2_2_filtered) +
 geom_line(aes(Day, SrCa),
     col = "blue") +
 scale_x_continuous("",
-    breaks = seq(startday, endday, 1),
+    breaks = seq(startday, endday, 2),
     labels = NULL,
     limits = c(startday, endday),
     sec.axis = dup_axis(name = "Depth (micrometers)",
@@ -45,7 +45,7 @@ PM2_2_Mgplot <- ggplot(PM2_2_filtered) +
 geom_line(aes(Day, MgCa),
     col = "darkgreen") +
 scale_x_continuous("",
-    breaks = seq(startday, endday, 1),
+    breaks = seq(startday, endday, 2),
     labels = NULL,
     limits = c(startday, endday)) +
 scale_y_continuous("Mg/Ca (mmol/mol)",
@@ -56,7 +56,7 @@ PM2_2_Mnplot <- ggplot(PM2_2_filtered) +
 geom_line(aes(Day, MnCa),
     col = "purple") +
 scale_x_continuous("",
-    breaks = seq(startday, endday, 1),
+    breaks = seq(startday, endday, 2),
     labels = NULL,
     limits = c(startday, endday)) +
 scale_y_continuous("Mn/Ca (umol/mol)",
@@ -69,7 +69,7 @@ PM2_2_Baplot <- ggplot(PM2_2_filtered) +
 geom_line(aes(Day, BaCa),
     col = "orange") +
 scale_x_continuous("Age (days)",
-    breaks = seq(startday, endday, 1),
+    breaks = seq(startday, endday, 2),
     limits = c(startday, endday)) +
 scale_y_continuous("Ba/Ca (umol/mol)",
     breaks = seq(.001, .004, .001),
@@ -161,4 +161,11 @@ TM29_combined <- ggarrange(
     TM29_Mnplot,
     TM29_Baplot,
     ncol = 1
+)
+
+# Combine both in one figure
+zoomin_combined <- ggarrange(
+    PM2_2_combined,
+    TM29_combined,
+    ncol = 2
 )
